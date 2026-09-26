@@ -86,7 +86,7 @@ export function AppSimulator({ onOpenWaitlist }) {
           Inside <span className="gradient-text-emerald">NEORTH</span>
         </h2>
         <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-sm md:text-base">
-          Try the live simulator below to experience how NEORTH syncs your banks via RBI Account Aggregators, turns goals into daily rituals, and builds your merit score.
+          Try the live simulator below to experience how NEORTH builds money discipline, drives daily progress for net worth improvement, aligns community goals, and brings wealth communities together to grow together.
         </p>
       </div>
 

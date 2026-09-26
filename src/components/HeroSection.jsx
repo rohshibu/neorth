@@ -40,8 +40,8 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
         </h1>
 
         {/* Short & Catchy Subtitle */}
-        <p className="text-lg sm:text-2xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
-          Auto-sync all your bank accounts via official <strong className="text-white font-bold underline decoration-[var(--emerald-glow)] decoration-2 underline-offset-4">RBI Account Aggregators</strong>, master daily money discipline, and supercharge your net worth.
+        <p className="text-lg sm:text-2xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8 font-medium leading-relaxed">
+          Master <strong className="text-white font-bold underline decoration-[var(--emerald-glow)] decoration-2 underline-offset-4">money discipline</strong>, make daily progress for net worth improvement, achieve community goals, and get together with wealth improvement communities to grow together.
         </p>
 
         {/* Primary CTA Buttons */}
@@ -73,7 +73,7 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto text-xs text-[var(--text-secondary)] font-bold">
           <div className="glass-panel p-3.5 flex items-center justify-center gap-2 border-[rgba(0,255,157,0.3)]">
             <ShieldCheck size={16} className="text-[var(--emerald-glow)]" />
-            <span>RBI AA Bank Sync</span>
+            <span>Money Discipline</span>
           </div>
           <div className="glass-panel p-3.5 flex items-center justify-center gap-2 border-[rgba(0,255,157,0.3)]">
             <Flame size={16} className="text-amber-400" />
