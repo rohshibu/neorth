@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23f59e0b'/><path d='M50 25 L55 45 L75 50 L55 55 L50 75 L45 55 L25 50 L45 45 Z' fill='%23fef08a'/><ellipse cx='50' cy='50' rx='48' ry='16' fill='none' stroke='%2334d399' stroke-width='6' transform='rotate(-20 50 50)'/><circle cx='86' cy='36' r='6' fill='%2300ff9d'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NEORTH — Turn Goals Into Daily Progress | Wealth & Discipline Platform</title>
+    <meta name="description" content="NEORTH is a world within the digital world. Turn personal and financial goals into daily progress, sync bank accounts via RBI Account Aggregator, earn merits, and join elite wealth circles." />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              neorth: {
+                deep: '#030b07',
+                main: '#06150e',
+                card: 'rgba(9, 32, 22, 0.75)',
+                emerald: '#10b981',
+                mint: '#00ff9d',
+                gold: '#f59e0b',
+                goldlight: '#fef08a',
+              }
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', 'Outfit', 'sans-serif'],
+              heading: ['Outfit', 'sans-serif'],
+              mono: ['Space Grotesk', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

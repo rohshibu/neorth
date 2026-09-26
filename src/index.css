@@ -1,0 +1,327 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --bg-deep: #020906;
+  --bg-main: #05140d;
+  --bg-card: rgba(8, 28, 19, 0.82);
+  --bg-card-hover: rgba(12, 42, 29, 0.9);
+  --bg-glass: rgba(16, 48, 33, 0.45);
+  --border-emerald: rgba(52, 211, 153, 0.25);
+  --border-emerald-bright: rgba(0, 255, 157, 0.6);
+  --border-gold: rgba(245, 158, 11, 0.4);
+  --emerald-primary: #10b981;
+  --emerald-glow: #00ff9d;
+  --gold-primary: #f59e0b;
+  --gold-glow: #fbbf24;
+  --gold-light: #fef08a;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-emerald: #34d399;
+  --text-gold: #fcd34d;
+  --red-accent: #ef4444;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+  --shadow-emerald: 0 10px 40px -10px rgba(0, 255, 157, 0.4);
+  --shadow-gold: 0 10px 40px -10px rgba(245, 158, 11, 0.45);
+  --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(0, 255, 157, 0.18), transparent 50%),
+    radial-gradient(circle at 15% 45%, rgba(52, 211, 153, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(245, 158, 11, 0.1), transparent 45%),
+    linear-gradient(to bottom, #020906, #05140d, #010604);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 157, 0.4);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--emerald-glow);
+}
+
+/* Cosmic Space Grid with Floating Orbits */
+.cosmic-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(52, 211, 153, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(52, 211, 153, 0.035) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 30%, black 20%, transparent 100%);
+}
+
+/* Animated Floating Orbits in Background */
+.bg-orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px dashed rgba(52, 211, 153, 0.2);
+  animation: spinSlow 60s linear infinite;
+}
+
+.bg-orbit-ring-gold {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1px dashed rgba(245, 158, 11, 0.25);
+  animation: spinSlowReverse 75s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinSlowReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* Fun Floating Money Coins */
+.floating-coin {
+  position: absolute;
+  pointer-events: none;
+  animation: floatMoney 5s ease-in-out infinite;
+}
+
+@keyframes floatMoney {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+}
+
+/* Typography Utility */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+  font-weight: 800;
+}
+
+.gradient-text-emerald {
+  background: linear-gradient(135deg, #ffffff 0%, #34d399 50%, #00ff9d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(0, 255, 157, 0.3));
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #ffffff 0%, #fcd34d 50%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.35));
+}
+
+/* Glass Card styling */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-emerald);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-emerald-bright);
+}
+
+.glass-panel-gold {
+  background: rgba(22, 28, 12, 0.82);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel-gold:hover {
+  border-color: var(--gold-glow);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Glow Pill Badges */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.badge-pill-emerald {
+  background: rgba(0, 255, 157, 0.12);
+  border: 1px solid rgba(0, 255, 157, 0.4);
+  color: var(--emerald-glow);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.2);
+}
+
+.badge-pill-gold {
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.45);
+  color: var(--gold-light);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+}
+
+/* Custom Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 30px;
+  border-radius: 9999px;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #02180e;
+  background: linear-gradient(135deg, #00ff9d 0%, #10b981 60%, #059669 100%);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 25px rgba(0, 255, 157, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: var(--transition-smooth);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 35px rgba(0, 255, 157, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 30px;
+  border-radius: 9999px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: rgba(16, 48, 33, 0.65);
+  border: 1px solid var(--border-emerald-bright);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 255, 157, 0.2);
+  border-color: var(--emerald-glow);
+  color: var(--emerald-glow);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 255, 157, 0.3);
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1a0f00;
+  background: linear-gradient(135deg, #fef08a 0%, #fbbf24 60%, #f59e0b 100%);
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-gold);
+  transition: var(--transition-smooth);
+}
+
+.btn-gold:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(245, 158, 11, 0.6);
+}
+
+/* Pulse & Sparkle Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+.animate-float {
+  animation: floatLogo 5s ease-in-out infinite;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(2, 8, 5, 0.88);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
