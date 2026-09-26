@@ -39,9 +39,9 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
           <span className="gradient-text-emerald">Achieve Every Financial Goal.</span>
         </h1>
 
-        {/* Instantly Understandable Subtitle */}
-        <p className="text-base sm:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
-          The single app that automatically syncs all your bank accounts via official <strong className="text-white">RBI Account Aggregators</strong>, tracks your real net worth growth, builds daily money discipline, and helps you save more every day.
+        {/* Short & Catchy Subtitle */}
+        <p className="text-lg sm:text-2xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
+          Auto-sync all your bank accounts via official <strong className="text-white font-bold underline decoration-[var(--emerald-glow)] decoration-2 underline-offset-4">RBI Account Aggregators</strong>, master daily money discipline, and supercharge your net worth.
         </p>
 
         {/* Primary CTA Buttons */}

@@ -181,8 +181,8 @@ export function Footer({ onOpenWaitlist }) {
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <a href="#ai-mentor" className="hover:text-[var(--emerald-glow)] transition-colors">
-                  AI Financial Mentor
+                <a href="#calculator" className="hover:text-[var(--emerald-glow)] transition-colors">
+                  RBI AA Net Worth Tracking
                 </a>
               </li>
               <li>

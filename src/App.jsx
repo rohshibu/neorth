@@ -5,7 +5,6 @@ import HeroSection from './components/HeroSection';
 import NetWorthCalculator from './components/NetWorthCalculator';
 import AppSimulator from './components/AppSimulator';
 import PillarsSection from './components/PillarsSection';
-import AIMentorSandbox from './components/AIMentorSandbox';
 import WaitlistModal from './components/WaitlistModal';
 import Footer from './components/Footer';
 
@@ -47,9 +46,6 @@ function App() {
 
         {/* Four Pillars of NEORTH */}
         <PillarsSection />
-
-        {/* AI Mentor Interactive Sandbox */}
-        <AIMentorSandbox onOpenWaitlist={handleOpenWaitlist} />
       </main>
 
       {/* Footer */}
