@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CosmicGalaxyBackground from './components/CosmicGalaxyBackground';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import NetWorthCalculator from './components/NetWorthCalculator';
@@ -23,9 +24,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative bg-[#020906] text-white">
-      {/* Background Cosmic Grid Pattern */}
-      <div className="cosmic-grid"></div>
+    <div className="min-h-screen flex flex-col relative bg-[#010905] text-white overflow-hidden">
+      {/* Dynamic Dark Green Galaxy & Orbit Motion Background */}
+      <CosmicGalaxyBackground />
 
       {/* Top Sticky Navigation */}
       <Navbar onOpenWaitlist={handleOpenWaitlist} />

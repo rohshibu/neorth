@@ -89,8 +89,8 @@ export function AIMentorSandbox({ onOpenWaitlist }) {
               className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.sender === 'ai' && (
-                <div className="w-7 h-7 rounded-full bg-emerald-900/60 border border-emerald-500/40 flex items-center justify-center text-[var(--emerald-glow)] flex-shrink-0">
-                  <Bot size={14} />
+                <div className="flex-shrink-0">
+                  <NeorthLogo size={24} animated={true} />
                 </div>
               )}
               <div
@@ -107,8 +107,8 @@ export function AIMentorSandbox({ onOpenWaitlist }) {
 
           {isTyping && (
             <div className="flex gap-2 text-[var(--emerald-glow)] text-xs items-center pl-2">
-              <Bot size={14} className="animate-spin" />
-              <span>NEORTH AI is analyzing financial history...</span>
+              <NeorthLogo size={18} animated={true} />
+              <span className="animate-pulse">NEORTH AI is analyzing financial history...</span>
             </div>
           )}
         </div>

@@ -325,3 +325,82 @@ h1, h2, h3, h4, h5, h6 {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* Dark Green Galaxy & Orbit Motion Animations */
+@keyframes nebulaPulse {
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+  50% { transform: scale(1.15) translate(20px, -15px); opacity: 1; }
+}
+
+.animate-nebula-pulse {
+  animation: nebulaPulse 18s ease-in-out infinite;
+}
+
+.animate-nebula-pulse-reverse {
+  animation: nebulaPulse 22s ease-in-out infinite reverse;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.animate-twinkle {
+  animation: starTwinkle 4s ease-in-out infinite;
+}
+
+@keyframes spinOrbitSlow {
+  0% { transform: translate(-50%, 0) rotate(0deg); }
+  100% { transform: translate(-50%, 0) rotate(360deg); }
+}
+
+@keyframes spinOrbitReverse {
+  0% { transform: translate(-50%, 0) rotate(360deg); }
+  100% { transform: translate(-50%, 0) rotate(0deg); }
+}
+
+.animate-spin-orbit-slow {
+  animation: spinOrbitSlow 45s linear infinite;
+}
+
+.animate-spin-orbit-reverse {
+  animation: spinOrbitReverse 55s linear infinite;
+}
+
+/* Shooting Star Animation */
+.shooting-star {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(-45deg, rgba(0, 255, 157, 0.9), rgba(0, 255, 157, 0));
+  filter: drop-shadow(0 0 6px rgba(0, 255, 157, 0.8));
+  animation: tail 4s ease-in-out infinite, shooting 4s ease-in-out infinite;
+  opacity: 0;
+}
+
+.shooting-star-1 {
+  top: 15%;
+  right: 20%;
+  width: 140px;
+  animation-delay: 2s;
+}
+
+.shooting-star-2 {
+  top: 50%;
+  left: 10%;
+  width: 160px;
+  animation-delay: 6s;
+}
+
+@keyframes tail {
+  0% { width: 0; }
+  30% { width: 150px; }
+  100% { width: 0; }
+}
+
+@keyframes shooting {
+  0% { transform: translateX(0) translateY(0) rotate(-40deg); opacity: 0; }
+  20% { opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translateX(-400px) translateY(400px) rotate(-40deg); opacity: 0; }
+}
+

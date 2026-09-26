@@ -1,5 +1,6 @@
 import React from 'react';
 import { TrendingUp, Target, Flame, Users, ShieldCheck, Award, Zap, Sparkles } from 'lucide-react';
+import NeorthLogo from './NeorthLogo';
 
 export function PillarsSection() {
   const pillars = [
@@ -56,9 +57,11 @@ export function PillarsSection() {
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto" id="pillars">
       <div className="text-center mb-12">
-        <div className="badge-pill badge-pill-emerald mb-3">
-          <Sparkles size={14} />
-          <span>The Four Pillars of NEORTH</span>
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[rgba(16,48,33,0.7)] border border-[rgba(0,255,157,0.4)] mb-4 shadow-xl backdrop-blur-xl">
+          <NeorthLogo size={24} animated={true} />
+          <span className="text-xs font-black text-[var(--emerald-glow)] tracking-wider uppercase font-mono">
+            The Four Pillars of NEORTH
+          </span>
         </div>
         <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
           Consistency is Not a Personality Trait.<br />
