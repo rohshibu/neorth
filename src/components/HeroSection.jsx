@@ -41,7 +41,7 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
 
         {/* Short & Catchy Subtitle */}
         <p className="text-lg sm:text-2xl text-[var(--text-secondary)] max-w-3xl mx-auto mb-8 font-medium leading-relaxed">
-          Master <strong className="text-white font-bold underline decoration-[var(--emerald-glow)] decoration-2 underline-offset-4">money discipline</strong>, make daily progress for net worth improvement, achieve community goals, and get together with wealth improvement communities to grow together.
+          Build your net worth. Share the journey. Grow with a community chasing generational wealth.
         </p>
 
         {/* Primary CTA Buttons */}
