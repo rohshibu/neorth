@@ -3,7 +3,7 @@ import NeorthLogo from './NeorthLogo';
 import CountdownTimer from './CountdownTimer';
 import { Sparkles, ShieldCheck, Flame, ArrowRight, PlayCircle, Coins, Award } from 'lucide-react';
 
-export function HeroSection({ onOpenWaitlist, onExploreDemo, waitlistCount = 57 }) {
+export function HeroSection({ onOpenWaitlist, onExploreDemo, waitlistCount = 827 }) {
   return (
     <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 overflow-hidden text-center">
       
@@ -65,7 +65,7 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo, waitlistCount = 57 
         </div>
 
         {/* Live Waitlist Counter */}
-        <div className="flex items-center justify-center gap-2 mb-10">
+        <div className="flex flex-col items-center justify-center gap-2 mb-10">
           <button
             onClick={onOpenWaitlist}
             className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[rgba(16,48,33,0.7)] hover:bg-[rgba(16,48,33,0.9)] border border-[rgba(0,255,157,0.35)] shadow-lg backdrop-blur-md transition-all hover:scale-105 cursor-pointer text-xs"
@@ -78,9 +78,12 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo, waitlistCount = 57 
               {waitlistCount}
             </span>
             <span className="text-[var(--text-secondary)] font-medium">
-              members have joined the waitlist →
+              people already in the waitlist →
             </span>
           </button>
+          <p className="text-[11px] sm:text-xs text-[var(--emerald-glow)]/80 font-medium">
+            🔒 Zero spam. We'll only give you a single email with App Store &amp; Play Store links when released.
+          </p>
         </div>
 
         {/* Countdown Timer to Jan 1, 2027 */}

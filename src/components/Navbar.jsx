@@ -2,7 +2,7 @@ import React from 'react';
 import NeorthLogo from './NeorthLogo';
 import { Sparkles } from 'lucide-react';
 
-export function Navbar({ onOpenWaitlist, waitlistCount = 57 }) {
+export function Navbar({ onOpenWaitlist, waitlistCount = 827 }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-2xl bg-[rgba(2,9,6,0.88)] border-b border-[rgba(0,255,157,0.18)] py-3.5 px-4 md:px-8 transition-all">
       <div className="max-w-7xl mx-auto flex items-center justify-between">

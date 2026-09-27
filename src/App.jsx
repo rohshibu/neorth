@@ -14,9 +14,9 @@ function App() {
     try {
       const saved = localStorage.getItem('neorth_waitlist_count');
       const parsed = saved ? parseInt(saved, 10) : NaN;
-      return !isNaN(parsed) && parsed >= 57 ? parsed : 57;
+      return !isNaN(parsed) && parsed >= 827 ? parsed : 827;
     } catch {
-      return 57;
+      return 827;
     }
   });
 

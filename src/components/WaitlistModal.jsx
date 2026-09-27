@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti';
 import { X, Sparkles, ShieldCheck, CheckCircle2, Copy } from 'lucide-react';
 import NeorthLogo from './NeorthLogo';
 
-export function WaitlistModal({ isOpen, onClose, waitlistCount = 57, onWaitlistSubmitted }) {
+export function WaitlistModal({ isOpen, onClose, waitlistCount = 827, onWaitlistSubmitted }) {
   if (!isOpen) return null;
 
   const [formData, setFormData] = useState({
@@ -170,6 +170,10 @@ export function WaitlistModal({ isOpen, onClose, waitlistCount = 57, onWaitlistS
                 </button>
               </div>
 
+              <div className="bg-[rgba(0,255,157,0.08)] border border-[rgba(0,255,157,0.25)] rounded-xl p-2.5 text-center text-[11px] text-[var(--emerald-glow)] font-medium">
+                🔒 We'll only give you a single mail with App Store and Play Store links when released.
+              </div>
+
               <div className="flex items-center justify-center gap-2 text-[10px] text-[var(--text-secondary)] pt-1">
                 <ShieldCheck size={12} className="text-[var(--emerald-glow)]" />
                 <span>Legally clean consented bank feeds via RBI Account Aggregators</span>
@@ -190,8 +194,8 @@ export function WaitlistModal({ isOpen, onClose, waitlistCount = 57, onWaitlistS
               Waitlist Priority Position: #{waitlistCount}
             </div>
 
-            <p className="text-xs text-[var(--text-secondary)] mb-5 max-w-sm mx-auto">
-              We will notify you at your email address when early onboarding begins for the January 1, 2027 launch.
+            <p className="text-xs text-[var(--text-secondary)] mb-4 max-w-sm mx-auto">
+              We'll only give you a single mail with the App Store and Play Store links when released. No promotional spam.
             </p>
 
             <div className="bg-[rgba(4,22,13,0.9)] border border-[rgba(0,255,157,0.3)] rounded-2xl p-4 mb-5 text-xs text-left font-mono">

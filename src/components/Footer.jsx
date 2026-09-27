@@ -6,7 +6,7 @@ import {
   Send, Globe, ExternalLink, ShieldAlert, Cpu, Heart, Check
 } from 'lucide-react';
 
-export function Footer({ onOpenWaitlist, waitlistCount = 57 }) {
+export function Footer({ onOpenWaitlist, waitlistCount = 827 }) {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
