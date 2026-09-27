@@ -6,7 +6,7 @@ import {
   Send, Globe, ExternalLink, ShieldAlert, Cpu, Heart, Check
 } from 'lucide-react';
 
-export function Footer({ onOpenWaitlist }) {
+export function Footer({ onOpenWaitlist, waitlistCount = 57 }) {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -227,10 +227,13 @@ export function Footer({ onOpenWaitlist }) {
 
             <button
               onClick={onOpenWaitlist}
-              className="btn-primary w-full text-xs py-2.5 px-4"
+              className="btn-primary w-full text-xs py-2.5 px-4 flex items-center justify-center gap-2"
             >
               <Sparkles size={14} />
               <span>Join Platform Waitlist</span>
+              <span className="bg-black/35 text-[10px] font-mono px-1.5 py-0.5 rounded-full text-white font-bold border border-white/20">
+                {waitlistCount}
+              </span>
             </button>
           </div>
 

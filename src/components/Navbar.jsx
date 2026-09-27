@@ -2,7 +2,7 @@ import React from 'react';
 import NeorthLogo from './NeorthLogo';
 import { Sparkles } from 'lucide-react';
 
-export function Navbar({ onOpenWaitlist }) {
+export function Navbar({ onOpenWaitlist, waitlistCount = 57 }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-2xl bg-[rgba(2,9,6,0.88)] border-b border-[rgba(0,255,157,0.18)] py-3.5 px-4 md:px-8 transition-all">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -34,10 +34,13 @@ export function Navbar({ onOpenWaitlist }) {
         <div className="flex items-center gap-3">
           <button
             onClick={onOpenWaitlist}
-            className="btn-primary text-xs md:text-sm py-2.5 px-5 md:px-6"
+            className="btn-primary text-xs md:text-sm py-2.5 px-4 md:px-5 flex items-center gap-2"
           >
             <Sparkles size={16} />
             <span>Join Waitlist</span>
+            <span className="bg-black/35 text-[11px] font-mono px-2 py-0.5 rounded-full text-white font-bold border border-white/20">
+              {waitlistCount}
+            </span>
           </button>
         </div>
 

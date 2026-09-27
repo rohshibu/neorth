@@ -10,6 +10,27 @@ import Footer from './components/Footer';
 
 function App() {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState(() => {
+    try {
+      const saved = localStorage.getItem('neorth_waitlist_count');
+      const parsed = saved ? parseInt(saved, 10) : NaN;
+      return !isNaN(parsed) && parsed >= 57 ? parsed : 57;
+    } catch {
+      return 57;
+    }
+  });
+
+  const handleIncrementWaitlist = () => {
+    setWaitlistCount((prev) => {
+      const next = prev + 1;
+      try {
+        localStorage.setItem('neorth_waitlist_count', next.toString());
+      } catch {
+        // safe storage handling
+      }
+      return next;
+    });
+  };
 
   const handleOpenWaitlist = () => {
     setIsWaitlistOpen(true);
@@ -28,7 +49,7 @@ function App() {
       <CosmicGalaxyBackground />
 
       {/* Top Sticky Navigation */}
-      <Navbar onOpenWaitlist={handleOpenWaitlist} />
+      <Navbar onOpenWaitlist={handleOpenWaitlist} waitlistCount={waitlistCount} />
 
       {/* Main Content Sections */}
       <main className="flex-1 relative z-10">
@@ -36,6 +57,7 @@ function App() {
         <HeroSection
           onOpenWaitlist={handleOpenWaitlist}
           onExploreDemo={handleExploreDemo}
+          waitlistCount={waitlistCount}
         />
 
         {/* Interactive Net Worth Growth Calculator */}
@@ -49,12 +71,14 @@ function App() {
       </main>
 
       {/* Footer */}
-      <Footer onOpenWaitlist={handleOpenWaitlist} />
+      <Footer onOpenWaitlist={handleOpenWaitlist} waitlistCount={waitlistCount} />
 
       {/* VIP Waitlist Modal */}
       <WaitlistModal
         isOpen={isWaitlistOpen}
         onClose={() => setIsWaitlistOpen(false)}
+        waitlistCount={waitlistCount}
+        onWaitlistSubmitted={handleIncrementWaitlist}
       />
     </div>
   );

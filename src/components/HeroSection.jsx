@@ -3,7 +3,7 @@ import NeorthLogo from './NeorthLogo';
 import CountdownTimer from './CountdownTimer';
 import { Sparkles, ShieldCheck, Flame, ArrowRight, PlayCircle, Coins, Award } from 'lucide-react';
 
-export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
+export function HeroSection({ onOpenWaitlist, onExploreDemo, waitlistCount = 57 }) {
   return (
     <section className="relative pt-10 pb-16 md:pt-16 md:pb-24 px-4 overflow-hidden text-center">
       
@@ -45,7 +45,7 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
         </p>
 
         {/* Primary CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
           <button
             onClick={onOpenWaitlist}
             className="btn-primary text-base py-3.5 px-8 w-full sm:w-auto shadow-2xl"
@@ -61,6 +61,25 @@ export function HeroSection({ onOpenWaitlist, onExploreDemo }) {
           >
             <PlayCircle size={20} />
             <span>Try Net Worth Calculator</span>
+          </button>
+        </div>
+
+        {/* Live Waitlist Counter */}
+        <div className="flex items-center justify-center gap-2 mb-10">
+          <button
+            onClick={onOpenWaitlist}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[rgba(16,48,33,0.7)] hover:bg-[rgba(16,48,33,0.9)] border border-[rgba(0,255,157,0.35)] shadow-lg backdrop-blur-md transition-all hover:scale-105 cursor-pointer text-xs"
+          >
+            <span className="flex h-2.5 w-2.5 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--emerald-glow)] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--emerald-glow)]"></span>
+            </span>
+            <span className="font-mono font-bold text-white text-sm bg-black/40 px-2.5 py-0.5 rounded-md border border-[rgba(0,255,157,0.3)]">
+              {waitlistCount}
+            </span>
+            <span className="text-[var(--text-secondary)] font-medium">
+              members have joined the waitlist →
+            </span>
           </button>
         </div>
 

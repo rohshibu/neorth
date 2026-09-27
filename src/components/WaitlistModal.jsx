@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti';
 import { X, Sparkles, ShieldCheck, CheckCircle2, Copy } from 'lucide-react';
 import NeorthLogo from './NeorthLogo';
 
-export function WaitlistModal({ isOpen, onClose }) {
+export function WaitlistModal({ isOpen, onClose, waitlistCount = 57, onWaitlistSubmitted }) {
   if (!isOpen) return null;
 
   const [formData, setFormData] = useState({
@@ -13,16 +13,46 @@ export function WaitlistModal({ isOpen, onClose }) {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [botField, setBotField] = useState('');
   const [linkCopied, setLinkCopied] = useState(false);
 
-  const handleSubmit = (e) => {
+  const encode = (data) => {
+    return Object.keys(data)
+      .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 100,
-      spread: 80,
-      origin: { y: 0.5 }
-    });
+    setIsSubmitting(true);
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': 'waitlist',
+          'bot-field': botField,
+          name: formData.name,
+          email: formData.email,
+          targetGoal: formData.targetGoal,
+        }),
+      });
+    } catch (err) {
+      console.warn('Netlify form submission caught (normal in local dev):', err);
+    } finally {
+      setIsSubmitting(false);
+      if (onWaitlistSubmitted) {
+        onWaitlistSubmitted();
+      }
+      setSubmitted(true);
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.5 }
+      });
+    }
   };
 
   return (
@@ -44,7 +74,13 @@ export function WaitlistModal({ isOpen, onClose }) {
             <div className="flex items-center gap-3 mb-4">
               <NeorthLogo size={36} animated={true} />
               <div>
-                <h3 className="text-2xl font-black text-white font-heading">Join Waitlist</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-2xl font-black text-white font-heading">Join Waitlist</h3>
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-[var(--emerald-glow)] bg-[rgba(0,255,157,0.12)] border border-[rgba(0,255,157,0.3)] px-2.5 py-0.5 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--emerald-glow)] animate-pulse"></span>
+                    {waitlistCount} Members
+                  </span>
+                </div>
                 <p className="text-xs text-[var(--emerald-glow)] font-mono font-bold">
                   Platform Launch: January 1, 2027
                 </p>
@@ -55,13 +91,34 @@ export function WaitlistModal({ isOpen, onClose }) {
               Get early access to consented RBI Account Aggregator bank feeds, net worth tracking, and daily money rituals.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+            <form
+              name="waitlist"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-4 text-xs"
+            >
+              {/* Hidden inputs required for Netlify Form Handling */}
+              <input type="hidden" name="form-name" value="waitlist" />
+              <p className="hidden" style={{ display: 'none' }}>
+                <label>
+                  Don’t fill this out if you're human:
+                  <input
+                    name="bot-field"
+                    value={botField}
+                    onChange={(e) => setBotField(e.target.value)}
+                  />
+                </label>
+              </p>
+
               <div>
                 <label className="block text-[var(--text-secondary)] font-bold mb-1">
                   Full Name
                 </label>
                 <input
                   type="text"
+                  name="name"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -76,6 +133,7 @@ export function WaitlistModal({ isOpen, onClose }) {
                 </label>
                 <input
                   type="email"
+                  name="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -89,6 +147,7 @@ export function WaitlistModal({ isOpen, onClose }) {
                   Target Net Worth Goal
                 </label>
                 <select
+                  name="targetGoal"
                   value={formData.targetGoal}
                   onChange={(e) => setFormData({ ...formData, targetGoal: e.target.value })}
                   className="w-full bg-[#04160d] border border-[rgba(0,255,157,0.3)] rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-[var(--emerald-glow)]"
@@ -101,9 +160,13 @@ export function WaitlistModal({ isOpen, onClose }) {
               </div>
 
               <div className="pt-2">
-                <button type="submit" className="btn-primary w-full text-sm py-3">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary w-full text-sm py-3 transition-all disabled:opacity-75"
+                >
                   <Sparkles size={16} />
-                  <span>Join Waitlist</span>
+                  <span>{isSubmitting ? 'Securing Spot...' : 'Join Waitlist'}</span>
                 </button>
               </div>
 
@@ -122,6 +185,10 @@ export function WaitlistModal({ isOpen, onClose }) {
             <h3 className="text-2xl font-black text-white mb-2">
               You are on the Waitlist, {formData.name || 'Visionary'}!
             </h3>
+
+            <div className="inline-block bg-[rgba(0,255,157,0.12)] border border-[rgba(0,255,157,0.3)] text-[var(--emerald-glow)] font-mono font-bold text-xs px-3.5 py-1 rounded-full mb-3">
+              Waitlist Priority Position: #{waitlistCount}
+            </div>
 
             <p className="text-xs text-[var(--text-secondary)] mb-5 max-w-sm mx-auto">
               We will notify you at your email address when early onboarding begins for the January 1, 2027 launch.

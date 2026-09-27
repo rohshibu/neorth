@@ -43,6 +43,20 @@
 </head>
 
 <body>
+  <!-- Hidden Netlify Forms definition for React/Vite SPA deployment -->
+  <form name="waitlist" data-netlify="true" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="waitlist" />
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <select name="targetGoal">
+      <option value="₹50 Lakhs">₹50 Lakhs</option>
+      <option value="₹1 Crore by 2030">₹1 Crore by 2030</option>
+      <option value="₹5 Crores">₹5 Crores</option>
+      <option value="₹10 Crores+">₹10 Crores+</option>
+    </select>
+    <input type="text" name="bot-field" />
+  </form>
+
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
