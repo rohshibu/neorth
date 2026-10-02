@@ -25,6 +25,12 @@ export function Navbar({ onOpenWaitlist, waitlistCount = 827 }) {
           <a href="#app-simulator" className="hover:text-[var(--emerald-glow)] transition-colors">
             App Experience
           </a>
+          <a href="#payment" className="hover:text-[var(--emerald-glow)] transition-colors flex items-center gap-1.5">
+            <span>Payment &amp; Merits</span>
+            <span className="text-[9px] font-mono px-1.5 py-0.5 bg-amber-500/15 text-[var(--gold-light)] rounded-full border border-amber-500/30">
+              Skin-in-Game
+            </span>
+          </a>
           <a href="#pillars" className="hover:text-[var(--emerald-glow)] transition-colors">
             The 4 Pillars
           </a>

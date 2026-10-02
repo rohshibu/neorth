@@ -3,6 +3,7 @@ import CosmicGalaxyBackground from './components/CosmicGalaxyBackground';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import AppSimulator from './components/AppSimulator';
+import AccountabilitySection from './components/AccountabilitySection';
 import PillarsSection from './components/PillarsSection';
 import WaitlistModal from './components/WaitlistModal';
 import Footer from './components/Footer';
@@ -61,6 +62,9 @@ function App() {
 
         {/* Interactive App Simulator (RBI AA, Daily Rituals, Real-Life Goals, Group Leaderboard, Milestone Proofs) */}
         <AppSimulator onOpenWaitlist={handleOpenWaitlist} />
+
+        {/* Accountability & Payment Model (Pay to Stay Accountable, Succeed to Get Value Back in Merits) */}
+        <AccountabilitySection onOpenWaitlist={handleOpenWaitlist} />
 
         {/* Four Pillars of NEORTH */}
         <PillarsSection />

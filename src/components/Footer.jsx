@@ -133,8 +133,13 @@ export function Footer({ onOpenWaitlist, waitlistCount = 827 }) {
                 </a>
               </li>
               <li>
-                <a href="#app-simulator" className="hover:text-[var(--emerald-glow)] transition-colors">
-                  Milestone Photo Proofs
+                <a href="#payment" className="hover:text-[var(--emerald-glow)] transition-colors">
+                  Payment &amp; Merits Model
+                </a>
+              </li>
+              <li>
+                <a href="#pillars" className="hover:text-[var(--emerald-glow)] transition-colors">
+                  The 4 Pillars
                 </a>
               </li>
             </ul>
