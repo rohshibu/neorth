@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { 
-  TrendingUp, ShieldCheck, Flame, Award, Users, CheckCircle2, 
-  Sparkles, RefreshCw, ChevronRight, Share2, PlusCircle, Check, AlertCircle, ArrowUpRight, MessageSquare, Lock
+  TrendingUp, ShieldCheck, Flame, Users, CheckCircle2, 
+  Sparkles, Check, AlertCircle, ArrowUpRight, Trophy, Camera, Heart, MessageCircle, ArrowRight
 } from 'lucide-react';
 import NeorthLogo from './NeorthLogo';
 
 export function AppSimulator({ onOpenWaitlist }) {
-  const [activeTab, setActiveTab] = useState('networth'); // networth, rituals, ratio, circles, merits
+  const [activeTab, setActiveTab] = useState('networth'); // networth, rituals, goals, leaderboard, proofs
 
   // Bank Aggregator Sync State
   const [syncedBanks, setSyncedBanks] = useState({
@@ -44,9 +44,7 @@ export function AppSimulator({ onOpenWaitlist }) {
     guidance: false,
     circle: false,
   });
-  const [journalText, setJournalText] = useState('');
   const [streakCount, setStreakCount] = useState(14);
-  const [merits, setMerits] = useState(2480);
   const [showStreakPopup, setShowStreakPopup] = useState(false);
 
   const toggleRitual = (key) => {
@@ -57,705 +55,703 @@ export function AppSimulator({ onOpenWaitlist }) {
     const allDone = Object.values(nextState).every(Boolean);
     if (allDone && !showStreakPopup) {
       setStreakCount((prev) => prev + 1);
-      setMerits((prev) => prev + 100);
       setShowStreakPopup(true);
       confetti({
-        particleCount: 80,
+        particleCount: 75,
         spread: 70,
         origin: { y: 0.6 }
       });
     }
   };
 
-  // Ratio Story State
-  const [storyCopied, setStoryCopied] = useState(false);
+  // Milestone Proof State
+  const [proofUploaded, setProofUploaded] = useState(false);
+  const [cheerCount, setCheerCount] = useState(24);
+  const [hasCheered, setHasCheered] = useState(false);
 
-  // Group Goal Proof state
-  const [proofSubmitted, setProofSubmitted] = useState(false);
+  const handleCheer = () => {
+    if (!hasCheered) {
+      setCheerCount((c) => c + 1);
+      setHasCheered(true);
+      confetti({
+        particleCount: 35,
+        spread: 50,
+        origin: { y: 0.7 }
+      });
+    }
+  };
+
+  const handleUploadProof = () => {
+    setProofUploaded(true);
+    confetti({
+      particleCount: 90,
+      spread: 80,
+      origin: { y: 0.55 }
+    });
+  };
+
+  // 2D Animation Illustration & Context per Screen (Real live examples)
+  const screenAnimations = {
+    networth: {
+      image: '/anim-networth.jpg',
+      badge: '1. LIVE RBI BANK SYNC',
+      badgeColor: 'emerald',
+      title: 'Zero Overwhelm • Calm Financial Clarity',
+      tagline: 'HDFC, ICICI & Zerodha accounts automatically synced via RBI Account Aggregator.',
+      statLabel: 'Consolidated Net Worth',
+      statValue: `₹${calculateTotalNetWorth().toLocaleString('en-IN')}`,
+      statusPill: '100% Consented & Encrypted',
+    },
+    rituals: {
+      image: '/anim-rituals.jpg',
+      badge: '2. DAILY MICRO-HABITS',
+      badgeColor: 'amber',
+      title: 'Turn "Later Maybe..." into Daily Momentum',
+      tagline: '4 quick micro-habits logged every morning to build an unbreakable money streak.',
+      statLabel: 'Active Discipline Streak',
+      statValue: `${streakCount} Days Blazing 🔥`,
+      statusPill: '4/4 Micro-Habits Logged',
+    },
+    goals: {
+      image: '/anim-goals.jpg',
+      badge: '3. REAL-LIFE GOALS WITH FRIENDS',
+      badgeColor: 'emerald',
+      title: 'Family & Friends Real Estate Fund',
+      tagline: 'Collaborative goal pool with timeline targets anchored to target age 28.',
+      statLabel: 'Pooled Goal Progress',
+      statValue: '75% Completed (Dec 2026 Target)',
+      statusPill: '₹10,000,000 Target on Schedule',
+    },
+    leaderboard: {
+      image: '/anim-leaderboard.jpg',
+      badge: '4. HEALTHY PEER COMPETITION',
+      badgeColor: 'gold',
+      title: 'Compete on % Completed — Not Balance',
+      tagline: 'Inner circle friendly rivalry where daily consistency and % completion climb to #1.',
+      statLabel: 'Bangalore Founders Circle',
+      statValue: '#1 Rohith (42%) vs #2 Priya (38%)',
+      statusPill: 'Fair Playing Field for All',
+    },
+    proofs: {
+      image: '/anim-proof.jpg',
+      badge: '5. VERIFIED MILESTONE PROOFS',
+      badgeColor: 'emerald',
+      title: 'Real-Life Milestone: Dream Car Delivered!',
+      tagline: 'Post real milestone photo proofs to your inner group as you hit 40% of your 1 Crore target.',
+      statLabel: 'Milestone Verified & Posted',
+      statValue: '40% of 1 Crore Achieved 🏆',
+      statusPill: 'Car Keys in Hand • Group Cheers',
+    },
+  };
+
+  const currentAnimation = screenAnimations[activeTab];
 
   return (
-    <div className="w-full max-w-6xl mx-auto my-12 px-4" id="app-simulator">
+    <div className="w-full max-w-6xl mx-auto my-6 sm:my-12 px-3 sm:px-6" id="app-simulator">
       
       {/* Header Banner */}
-      <div className="text-center mb-8">
-        <div className="badge-pill badge-pill-emerald mb-3">
-          <Sparkles size={14} />
+      <div className="text-center mb-5 sm:mb-8">
+        <div className="badge-pill badge-pill-emerald mb-2 text-[10px] sm:text-xs">
+          <Sparkles size={13} />
           <span>Interactive App Experience</span>
         </div>
-        <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-white mb-2">
           Inside <span className="gradient-text-emerald">NEORTH</span>
         </h2>
-        <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-sm md:text-base">
-          Build your net worth. Share the journey. Grow with a community chasing generational wealth.
+        <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-xs sm:text-sm px-2">
+          Toggle each screen to experience daily wealth building, bank-synced goals, and healthy inner-circle competition.
         </p>
       </div>
 
       {/* Main Simulator Card */}
-      <div className="glass-panel p-4 md:p-8 relative overflow-hidden border border-[var(--border-emerald)] shadow-2xl">
+      <div className="glass-panel p-3 sm:p-5 md:p-6 relative overflow-hidden border border-[var(--border-emerald)] shadow-2xl">
         
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 border-b border-[rgba(52,211,153,0.15)] scrollbar-none">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-3 mb-5 border-b border-[rgba(52,211,153,0.15)] scrollbar-none">
           <button
             onClick={() => setActiveTab('networth')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === 'networth'
-                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-lg shadow-emerald-500/20'
+                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-md shadow-emerald-500/20'
                 : 'bg-[rgba(16,45,32,0.5)] text-[var(--text-secondary)] hover:text-white'
             }`}
           >
-            <TrendingUp size={16} />
-            <span>1. RBI Bank & Net Worth</span>
+            <TrendingUp size={14} />
+            <span>1. RBI Net Worth</span>
           </button>
 
           <button
             onClick={() => setActiveTab('rituals')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
               activeTab === 'rituals'
-                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-lg'
+                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-md'
                 : 'bg-[rgba(16,45,32,0.5)] text-[var(--text-secondary)] hover:text-white'
             }`}
           >
-            <Flame size={16} />
+            <Flame size={14} />
             <span>2. Daily Rituals ({streakCount} 🔥)</span>
           </button>
 
           <button
-            onClick={() => setActiveTab('ratio')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'ratio'
-                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-lg'
+            onClick={() => setActiveTab('goals')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'goals'
+                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-md'
                 : 'bg-[rgba(16,45,32,0.5)] text-[var(--text-secondary)] hover:text-white'
             }`}
           >
-            <Share2 size={16} />
-            <span>3. Bi-Annual Ratio Story</span>
+            <Users size={14} />
+            <span>3. Real-Life Goals</span>
           </button>
 
           <button
-            onClick={() => setActiveTab('circles')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'circles'
-                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-lg'
+            onClick={() => setActiveTab('leaderboard')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'leaderboard'
+                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-md'
                 : 'bg-[rgba(16,45,32,0.5)] text-[var(--text-secondary)] hover:text-white'
             }`}
           >
-            <Users size={16} />
-            <span>4. Circles & Group Goals</span>
+            <Trophy size={14} className={activeTab === 'leaderboard' ? 'text-black' : ''} />
+            <span>4. Group Leaderboard</span>
           </button>
 
           <button
-            onClick={() => setActiveTab('merits')}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'merits'
-                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-lg'
+            onClick={() => setActiveTab('proofs')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'proofs'
+                ? 'bg-[var(--emerald-primary)] text-black font-bold shadow-md'
                 : 'bg-[rgba(16,45,32,0.5)] text-[var(--text-secondary)] hover:text-white'
             }`}
           >
-            <Award size={16} />
-            <span>5. 7 Merit Tiers</span>
+            <Camera size={14} />
+            <span>5. Milestone Proofs</span>
           </button>
         </div>
 
-        {/* TAB 1: NET WORTH & RBI ACCOUNT AGGREGATOR */}
-        {activeTab === 'networth' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* 2-Column Layout: Live App Screen + 2D Animation Scene for that screen */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+          
+          {/* LEFT: Live Phone Simulator (lg:col-span-7) */}
+          <div className="lg:col-span-7 bg-[#051811] border border-[rgba(52,211,153,0.3)] rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl relative flex flex-col justify-between">
             
-            {/* Phone Screen Mockup */}
-            <div className="lg:col-span-7 bg-[#051811] border border-[rgba(52,211,153,0.3)] rounded-3xl p-5 md:p-6 shadow-2xl relative">
-              
-              {/* Phone Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-[rgba(52,211,153,0.15)] mb-4">
-                <div className="flex items-center gap-2">
-                  <NeorthLogo size={28} animated={false} />
-                  <div>
-                    <div className="text-xs text-[var(--text-secondary)]">Good morning,</div>
-                    <div className="text-base font-bold text-white">Rohith S. 👋</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] bg-[rgba(16,185,129,0.15)] text-[var(--emerald-glow)] px-2.5 py-1 rounded-full font-mono flex items-center gap-1 border border-emerald-500/30">
-                    <ShieldCheck size={12} /> RBI AA Sync
-                  </span>
-                </div>
-              </div>
-
-              {/* Net Worth Main Card (Inspired by image_2.png) */}
-              <div className="bg-gradient-to-br from-[#0c3324] to-[#062016] border border-[rgba(52,211,153,0.3)] rounded-2xl p-5 mb-5 shadow-lg relative overflow-hidden">
-                <div className="text-xs text-[var(--text-secondary)] uppercase tracking-wider font-semibold mb-1">
-                  Total Consolidate Net Worth
-                </div>
-                <div className="text-3xl md:text-4xl font-extrabold text-white font-mono flex items-baseline gap-3">
-                  ₹{calculateTotalNetWorth().toLocaleString('en-IN')}
-                  <span className="text-xs font-sans text-[var(--emerald-glow)] bg-[rgba(0,255,157,0.1)] px-2.5 py-1 rounded-full flex items-center gap-1">
-                    <ArrowUpRight size={14} /> +13% (+₹2,65,000)
-                  </span>
-                </div>
-                <div className="text-xs text-[var(--text-secondary)] mt-1">
-                  Assets: ₹{(calculateTotalNetWorth() * 1.15).toLocaleString('en-IN')} | Liabilities: ₹{(calculateTotalNetWorth() * 0.15).toLocaleString('en-IN')}
-                </div>
-
-                {/* Micro Sparkline visual */}
-                <div className="mt-4 pt-3 border-t border-[rgba(52,211,153,0.2)] flex items-center justify-between text-xs text-[var(--text-secondary)]">
-                  <span>Savings Rate: <strong className="text-white">44%</strong></span>
-                  <span>Debt Payoff: <strong className="text-[var(--emerald-glow)]">On Track (82%)</strong></span>
-                </div>
-              </div>
-
-              {/* Interactive Connected Banks List (RBI AA Simulation) */}
-              <div className="space-y-3 mb-5">
-                <div className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider flex items-center justify-between">
-                  <span>RBI Account Aggregator Linked Feeds</span>
-                  <span className="text-[11px] text-[var(--emerald-glow)]">Toggle to test live recalculation</span>
-                </div>
-
-                <div
-                  onClick={() => toggleBank('hdfc')}
-                  className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    syncedBanks.hdfc
-                      ? 'bg-[rgba(16,45,32,0.8)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800 opacity-60'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-blue-900/60 text-blue-300 font-bold flex items-center justify-center text-xs">
-                      HDFC
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-white">HDFC Salary Account</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Finvu AA Consent Verified</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs font-bold font-mono text-white">₹8,40,000</div>
-                    <div className="text-[10px] text-[var(--emerald-glow)]">{syncedBanks.hdfc ? 'Synced' : 'Disabled'}</div>
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => toggleBank('icici')}
-                  className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    syncedBanks.icici
-                      ? 'bg-[rgba(16,45,32,0.8)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800 opacity-60'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-orange-900/60 text-orange-300 font-bold flex items-center justify-center text-xs">
-                      ICICI
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-white">ICICI Direct Mutual Funds</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Anumati AA Feed</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs font-bold font-mono text-white">₹9,10,000</div>
-                    <div className="text-[10px] text-[var(--emerald-glow)]">{syncedBanks.icici ? 'Synced' : 'Disabled'}</div>
-                  </div>
-                </div>
-
-                <div
-                  onClick={() => toggleBank('zerodha')}
-                  className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    syncedBanks.zerodha
-                      ? 'bg-[rgba(16,45,32,0.8)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800 opacity-60'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-900/60 text-emerald-300 font-bold flex items-center justify-center text-xs">
-                      ZRD
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-white">Zerodha Kite Demat</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Setu AA Automated Sync</div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs font-bold font-mono text-white">₹5,30,000</div>
-                    <div className="text-[10px] text-[var(--emerald-glow)]">{syncedBanks.zerodha ? 'Synced' : 'Disabled'}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* What Changed & Why Log (Requested Feature Improvement) */}
-              <div className="bg-[rgba(6,21,14,0.9)] border border-[rgba(245,158,11,0.3)] rounded-xl p-4">
-                <div className="text-xs font-bold text-[var(--gold-light)] flex items-center gap-2 mb-2">
-                  <Sparkles size={14} /> What Changed & Why (Monthly Audit)
-                </div>
-                <ul className="text-xs text-[var(--text-secondary)] space-y-1.5 list-disc list-inside">
-                  <li><span className="text-white font-medium">+₹1,40,000</span> Nifty 50 Index SIP market appreciation</li>
-                  <li><span className="text-white font-medium">+₹85,000</span> Performance bonus credited via HDFC</li>
-                  <li><span className="text-white font-medium">-₹25,000</span> Car loan principal prepayment (Debt reduction)</li>
-                </ul>
-              </div>
-
-            </div>
-
-            {/* Explanatory Panel for Feature #1 & #2 */}
-            <div className="lg:col-span-5 space-y-5">
-              <div className="glass-panel p-5 border-l-4 border-l-[var(--emerald-glow)]">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Legally Clean RBI Account Aggregator Integration
-                </h3>
-                <p className="text-xs md:text-sm text-[var(--text-secondary)] mb-4">
-                  In India, NEORTH leverages official **RBI Account Aggregator frameworks (Setu, Finvu, Anumati, Perfios)**. It’s the only legally compliant way to pull consented financial data safely across 20+ banks without screen scraping.
-                </p>
-                
-                <div className="space-y-2 text-xs">
-                  <div className="flex items-center gap-2 text-[var(--text-emerald)]">
-                    <CheckCircle2 size={16} /> 100% Encrypted & User-Consented
-                  </div>
-                  <div className="flex items-center gap-2 text-[var(--text-emerald)]">
-                    <CheckCircle2 size={16} /> Real-Time Asset & Liability Balance
-                  </div>
-                  <div className="flex items-center gap-2 text-[var(--text-emerald)]">
-                    <CheckCircle2 size={16} /> Dynamic "What Changed & Why" Audit Logs
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-[rgba(16,45,32,0.4)] border border-[rgba(52,211,153,0.2)] rounded-2xl p-5">
-                <div className="text-xs font-bold uppercase tracking-wider text-[var(--emerald-glow)] mb-2">
-                  Recommended AI Action
-                </div>
-                <p className="text-xs text-[var(--text-secondary)] mb-3">
-                  "Based on your ₹8.4L liquid balance in HDFC, moving ₹40,000 surplus into high-yield short debt fund will add ₹3,200/mo without risking your liquidity buffer."
-                </p>
-                <button onClick={onOpenWaitlist} className="btn-secondary w-full text-xs py-2">
-                  Apply Action via Mentor
-                </button>
-              </div>
-            </div>
-
-          </div>
-        )}
-
-        {/* TAB 2: DAILY RITUALS & DUOLINGO STREAK */}
-        {activeTab === 'rituals' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
-            {/* Phone Ritual Screen */}
-            <div className="lg:col-span-7 bg-[#051811] border border-[rgba(52,211,153,0.3)] rounded-3xl p-5 md:p-6 shadow-2xl">
-              
-              <div className="flex items-center justify-between pb-4 border-b border-[rgba(52,211,153,0.15)] mb-4">
+            {/* Phone Top Bar */}
+            <div className="flex items-center justify-between pb-3 border-b border-[rgba(52,211,153,0.15)] mb-3">
+              <div className="flex items-center gap-2">
+                <NeorthLogo size={24} animated={false} />
                 <div>
-                  <div className="text-xs text-[var(--text-secondary)]">Daily Growth Rituals</div>
-                  <div className="text-base font-bold text-white flex items-center gap-2">
-                    Today's Discipline <Flame size={18} className="text-orange-500 fill-orange-500" />
-                  </div>
-                </div>
-                <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 text-amber-300 px-3 py-1 rounded-full text-xs font-mono font-bold flex items-center gap-1.5">
-                  <Flame size={14} className="fill-amber-400" /> {streakCount} Day Streak
+                  <div className="text-[10px] text-[var(--text-secondary)]">Live Simulator</div>
+                  <div className="text-xs sm:text-sm font-bold text-white">Rohith S. 👋</div>
                 </div>
               </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] bg-[rgba(16,185,129,0.15)] text-[var(--emerald-glow)] px-2 py-0.5 rounded-full font-mono flex items-center gap-1 border border-emerald-500/30">
+                  <ShieldCheck size={11} /> RBI AA Sync
+                </span>
+                <span className="text-[10px] bg-amber-500/15 text-amber-300 px-2 py-0.5 rounded-full font-mono flex items-center gap-1 border border-amber-500/30">
+                  <Flame size={11} className="fill-amber-400" /> {streakCount}d
+                </span>
+              </div>
+            </div>
 
-              {/* Interactive Ritual Steps */}
-              <div className="space-y-3 mb-6">
-                
-                {/* Step 1 */}
+            {/* TAB 1 CONTENT: NET WORTH */}
+            {activeTab === 'networth' && (
+              <div className="space-y-3 animate-fadeIn">
+                <div className="bg-gradient-to-br from-[#0c3324] to-[#062016] border border-[rgba(52,211,153,0.3)] rounded-xl p-3.5 shadow-lg relative overflow-hidden">
+                  <div className="text-[10px] text-[var(--text-secondary)] uppercase tracking-wider font-semibold mb-1">
+                    Consolidated Net Worth
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono flex flex-wrap items-baseline gap-2">
+                    <span>₹{calculateTotalNetWorth().toLocaleString('en-IN')}</span>
+                    <span className="text-[10px] font-sans text-[var(--emerald-glow)] bg-[rgba(0,255,157,0.1)] px-2 py-0.5 rounded-full flex items-center gap-0.5 font-bold">
+                      <ArrowUpRight size={12} /> +13% (+₹2,65,000)
+                    </span>
+                  </div>
+                  <div className="text-[10px] text-[var(--text-secondary)] mt-1 truncate">
+                    Assets: ₹{(calculateTotalNetWorth() * 1.15).toLocaleString('en-IN')} • Liabilities: ₹{(calculateTotalNetWorth() * 0.15).toLocaleString('en-IN')}
+                  </div>
+                  <div className="mt-2.5 pt-2 border-t border-[rgba(52,211,153,0.2)] flex items-center justify-between text-[10px] text-[var(--text-secondary)]">
+                    <span>Savings Velocity: <strong className="text-white">44%</strong></span>
+                    <span>Debt Payoff: <strong className="text-[var(--emerald-glow)]">On Track</strong></span>
+                  </div>
+                </div>
+
+                {/* Linked Accounts (Toggleable) */}
+                <div className="space-y-1.5">
+                  <div className="text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider flex items-center justify-between">
+                    <span>Linked Feeds (RBI AA)</span>
+                    <span className="text-[9px] text-[var(--emerald-glow)]">Tap account to toggle</span>
+                  </div>
+
+                  <div
+                    onClick={() => toggleBank('hdfc')}
+                    className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                      syncedBanks.hdfc
+                        ? 'bg-[rgba(16,45,32,0.8)] border-[var(--emerald-glow)]'
+                        : 'bg-black/30 border-gray-800 opacity-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded bg-blue-900/60 text-blue-300 font-bold flex items-center justify-center text-[9px]">
+                        HDFC
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold text-white">HDFC Salary Account</div>
+                        <div className="text-[9px] text-[var(--text-secondary)]">Finvu AA Verified</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs font-bold font-mono text-white">₹8,40,000</div>
+                      <div className="text-[9px] text-[var(--emerald-glow)]">{syncedBanks.hdfc ? 'Synced ✓' : 'Disabled'}</div>
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => toggleBank('icici')}
+                    className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                      syncedBanks.icici
+                        ? 'bg-[rgba(16,45,32,0.8)] border-[var(--emerald-glow)]'
+                        : 'bg-black/30 border-gray-800 opacity-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded bg-orange-900/60 text-orange-300 font-bold flex items-center justify-center text-[9px]">
+                        ICICI
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold text-white">ICICI Mutual Funds</div>
+                        <div className="text-[9px] text-[var(--text-secondary)]">Anumati AA Feed</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs font-bold font-mono text-white">₹9,10,000</div>
+                      <div className="text-[9px] text-[var(--emerald-glow)]">{syncedBanks.icici ? 'Synced ✓' : 'Disabled'}</div>
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => toggleBank('zerodha')}
+                    className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                      syncedBanks.zerodha
+                        ? 'bg-[rgba(16,45,32,0.8)] border-[var(--emerald-glow)]'
+                        : 'bg-black/30 border-gray-800 opacity-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded bg-emerald-900/60 text-emerald-300 font-bold flex items-center justify-center text-[9px]">
+                        ZRD
+                      </div>
+                      <div>
+                        <div className="text-xs font-semibold text-white">Zerodha Demat Portfolio</div>
+                        <div className="text-[9px] text-[var(--text-secondary)]">Setu AA Feed</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs font-bold font-mono text-white">₹5,30,000</div>
+                      <div className="text-[9px] text-[var(--emerald-glow)]">{syncedBanks.zerodha ? 'Synced ✓' : 'Disabled'}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-[rgba(6,21,14,0.9)] border border-[rgba(245,158,11,0.3)] rounded-xl p-2.5 text-[10px]">
+                  <div className="text-[11px] font-bold text-[var(--gold-light)] flex items-center gap-1 mb-1">
+                    <Sparkles size={12} /> Monthly Audit Breakdown
+                  </div>
+                  <div className="text-[var(--text-secondary)] flex justify-between">
+                    <span>+₹1,40,000 Equity Index Appreciation</span>
+                    <span className="text-[var(--emerald-glow)]">+13% Growth</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2 CONTENT: DAILY RITUALS */}
+            {activeTab === 'rituals' && (
+              <div className="space-y-2 animate-fadeIn">
+                <div className="text-[10px] text-[var(--text-secondary)] font-mono flex items-center justify-between">
+                  <span>Today's 4 Micro-Habits</span>
+                  <span className="text-[var(--emerald-glow)]">Tap step to check off</span>
+                </div>
+
                 <div
                   onClick={() => toggleRitual('review')}
-                  className={`p-4 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    ritualsCompleted.review
-                      ? 'bg-[rgba(16,185,129,0.15)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800'
+                  className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                    ritualsCompleted.review ? 'bg-emerald-500/15 border-[var(--emerald-glow)]' : 'bg-black/30 border-gray-800'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
+                  <div className="flex items-center gap-2">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
                       ritualsCompleted.review ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
                     }`}>
-                      {ritualsCompleted.review ? <Check size={14} /> : '1'}
+                      {ritualsCompleted.review ? <Check size={11} /> : '1'}
                     </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Review Your Money</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Inspected income, expenses & outcomes since last review</div>
-                    </div>
+                    <div className="text-xs font-bold text-white">1. Review Today's Money</div>
                   </div>
-                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono">+25 Merits</span>
-                </div>
-
-                {/* Step 2 */}
-                <div
-                  onClick={() => toggleRitual('reflect')}
-                  className={`p-4 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    ritualsCompleted.reflect
-                      ? 'bg-[rgba(16,185,129,0.15)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                      ritualsCompleted.reflect ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
-                    }`}>
-                      {ritualsCompleted.reflect ? <Check size={14} /> : '2'}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Reflect & Record</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Journaled daily win & area to improve</div>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono">+25 Merits</span>
-                </div>
-
-                {/* Step 3 */}
-                <div
-                  onClick={() => toggleRitual('guidance')}
-                  className={`p-4 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    ritualsCompleted.guidance
-                      ? 'bg-[rgba(16,185,129,0.15)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                      ritualsCompleted.guidance ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
-                    }`}>
-                      {ritualsCompleted.guidance ? <Check size={14} /> : '3'}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Receive AI Guidance</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Personalized insight & next action step</div>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono">+25 Merits</span>
-                </div>
-
-                {/* Step 4 */}
-                <div
-                  onClick={() => toggleRitual('circle')}
-                  className={`p-4 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
-                    ritualsCompleted.circle
-                      ? 'bg-[rgba(16,185,129,0.15)] border-[var(--emerald-glow)]'
-                      : 'bg-black/30 border-gray-800'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
-                      ritualsCompleted.circle ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
-                    }`}>
-                      {ritualsCompleted.circle ? <Check size={14} /> : '4'}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Participate in Circle</div>
-                      <div className="text-[11px] text-[var(--text-secondary)]">Reviewed group updates & gave input</div>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono">+25 Merits</span>
-                </div>
-
-              </div>
-
-              {/* Reward Banner */}
-              {showStreakPopup && (
-                <div className="bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border border-amber-400/50 rounded-2xl p-4 text-center animate-bounce">
-                  <div className="text-sm font-bold text-amber-300 flex items-center justify-center gap-2">
-                    <Flame size={18} className="fill-amber-400" /> Milestone Unlocked: {streakCount} Days!
-                  </div>
-                  <div className="text-xs text-[var(--text-primary)] mt-1">
-                    You earned +100 Bonus Merits! Total Balance: <strong className="text-[var(--gold-light)]">{merits} Merits</strong>
-                  </div>
-                </div>
-              )}
-
-            </div>
-
-            {/* Ritual Explanation */}
-            <div className="lg:col-span-5 space-y-5">
-              <div className="glass-panel p-5 border-l-4 border-l-amber-500">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Duolingo-Style Daily Gamification
-                </h3>
-                <p className="text-xs md:text-sm text-[var(--text-secondary)] mb-4">
-                  Consistency is not a personality trait—it's a system. NEORTH gives you 4 quick daily rituals. Completing them builds streaks, awards Merits, and triggers AI mentor nudges to keep you focused on your target net worth.
-                </p>
-                <div className="bg-[rgba(6,21,14,0.8)] p-3 rounded-xl border border-amber-500/30 text-xs text-[var(--gold-light)] font-mono">
-                  🔥 Next Milestone: 30-Day Streak → Unlocks "1 Crore Club" Private Circle Access!
-                </div>
-              </div>
-            </div>
-
-          </div>
-        )}
-
-        {/* TAB 3: BI-ANNUAL RATIO FLEX STORIES (Q2 & Q4) */}
-        {activeTab === 'ratio' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            
-            {/* Spotify / Strava Style Shareable Story Card */}
-            <div className="lg:col-span-6 mx-auto w-full max-w-sm">
-              <div className="bg-gradient-to-b from-[#0a2f21] via-[#051c13] to-[#020b07] border-2 border-[var(--emerald-glow)] rounded-3xl p-6 shadow-2xl relative text-center overflow-hidden">
-                
-                {/* Background Orbital Glow */}
-                <div className="absolute -top-10 -left-10 w-40 h-40 bg-[var(--emerald-glow)]/15 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-2">
-                    <NeorthLogo size={28} animated={true} />
-                    <span className="font-extrabold text-white text-sm tracking-wider">NEORTH</span>
-                  </div>
-                  <span className="badge-pill badge-pill-gold text-[10px]">
-                    Q4 MERIT REVEAL
+                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono font-bold">
+                    {ritualsCompleted.review ? 'Done ✓' : 'Tap'}
                   </span>
                 </div>
 
-                <div className="text-xs uppercase text-[var(--text-secondary)] tracking-widest font-semibold mb-2">
-                  Income-to-Expense Ratio
-                </div>
-
-                {/* Big Ratio Display */}
-                <div className="text-6xl font-extrabold text-white font-mono my-3 tracking-tight">
-                  5 : 1
-                </div>
-
-                <div className="inline-block bg-[rgba(16,185,129,0.2)] border border-[var(--emerald-glow)] text-[var(--emerald-glow)] font-bold text-xs px-3 py-1 rounded-full mb-6">
-                  ✨ Elite Financial Discipline (Top 2%)
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 mb-6 text-left font-mono">
-                  <div className="bg-black/40 p-3 rounded-xl border border-gray-800">
-                    <div className="text-[10px] text-[var(--text-secondary)]">NET WORTH GROW</div>
-                    <div className="text-lg font-bold text-white">+₹2,65,000</div>
+                <div
+                  onClick={() => toggleRitual('reflect')}
+                  className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                    ritualsCompleted.reflect ? 'bg-emerald-500/15 border-[var(--emerald-glow)]' : 'bg-black/30 border-gray-800'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                      ritualsCompleted.reflect ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
+                    }`}>
+                      {ritualsCompleted.reflect ? <Check size={11} /> : '2'}
+                    </div>
+                    <div className="text-xs font-bold text-white">2. Reflect &amp; Record Win</div>
                   </div>
-                  <div className="bg-black/40 p-3 rounded-xl border border-gray-800">
-                    <div className="text-[10px] text-[var(--text-secondary)]">MERIT LEVEL</div>
-                    <div className="text-lg font-bold text-[var(--gold-light)]">Level 4 Elite</div>
+                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono font-bold">
+                    {ritualsCompleted.reflect ? 'Done ✓' : 'Tap'}
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => toggleRitual('guidance')}
+                  className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                    ritualsCompleted.guidance ? 'bg-emerald-500/15 border-[var(--emerald-glow)]' : 'bg-black/30 border-gray-800'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                      ritualsCompleted.guidance ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
+                    }`}>
+                      {ritualsCompleted.guidance ? <Check size={11} /> : '3'}
+                    </div>
+                    <div className="text-xs font-bold text-white">3. Receive AI Advice</div>
+                  </div>
+                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono font-bold">
+                    {ritualsCompleted.guidance ? 'Done ✓' : 'Tap'}
+                  </span>
+                </div>
+
+                <div
+                  onClick={() => toggleRitual('circle')}
+                  className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                    ritualsCompleted.circle ? 'bg-emerald-500/15 border-[var(--emerald-glow)]' : 'bg-black/30 border-gray-800'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                      ritualsCompleted.circle ? 'bg-[var(--emerald-primary)] text-black' : 'border border-gray-600 text-gray-400'
+                    }`}>
+                      {ritualsCompleted.circle ? <Check size={11} /> : '4'}
+                    </div>
+                    <div className="text-xs font-bold text-white">4. Inner Group Check-In</div>
+                  </div>
+                  <span className="text-[10px] text-[var(--emerald-glow)] font-mono font-bold">
+                    {ritualsCompleted.circle ? 'Done ✓' : 'Tap'}
+                  </span>
+                </div>
+
+                <div className="bg-gradient-to-r from-amber-500/15 to-emerald-500/15 border border-amber-400/40 rounded-xl p-2.5 text-center mt-2">
+                  <div className="text-xs font-bold text-amber-300 flex items-center justify-center gap-1">
+                    <Flame size={14} className="fill-amber-400" /> Active Discipline Streak: {streakCount} Days!
+                  </div>
+                  <div className="text-[10px] text-[var(--emerald-glow)] mt-0.5">
+                    Consistency Score: 98% • Climbing Inner Circle Leaderboard
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 3 CONTENT: REAL-LIFE GOALS */}
+            {activeTab === 'goals' && (
+              <div className="space-y-3 animate-fadeIn">
+                <div className="bg-gradient-to-r from-emerald-950/60 to-black p-3.5 rounded-xl border border-emerald-500/30">
+                  <div className="flex items-center justify-between text-xs mb-1">
+                    <span className="font-bold text-white truncate">₹10,000,000 Real Estate Fund</span>
+                    <span className="font-mono text-[var(--emerald-glow)] font-bold ml-1">75% Achieved</span>
+                  </div>
+                  <div className="w-full bg-gray-800 rounded-full h-2 mb-1.5">
+                    <div className="bg-gradient-to-r from-emerald-500 to-[var(--emerald-glow)] h-2 rounded-full w-3/4"></div>
+                  </div>
+                  <div className="text-[10px] text-[var(--text-secondary)] flex justify-between">
+                    <span>Target Age: 28</span>
+                    <span>Deadline: Dec 2026</span>
                   </div>
                 </div>
 
-                <div className="text-xs italic text-[var(--text-secondary)] mb-6">
-                  "Building net worth with Timidity and Wavering mind removed."
+                <div className="space-y-1.5">
+                  <div className="text-[10px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider">
+                    Inner Group Deposit Verification
+                  </div>
+
+                  <div className="p-2 bg-black/40 rounded-xl border border-emerald-500/40 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center text-[10px]">
+                        RS
+                      </div>
+                      <div className="text-xs font-bold text-white">Rohith (You) • ₹25L Target</div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-[var(--emerald-glow)] border border-emerald-500/40 flex items-center gap-0.5">
+                      <Check size={10} /> Verified (GREEN)
+                    </span>
+                  </div>
+
+                  <div className="p-2 bg-black/40 rounded-xl border border-emerald-500/40 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center text-[10px]">
+                        PK
+                      </div>
+                      <div className="text-xs font-bold text-white">Priya K. • ₹25L Target</div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-[var(--emerald-glow)] border border-emerald-500/40 flex items-center gap-0.5">
+                      <Check size={10} /> Verified (GREEN)
+                    </span>
+                  </div>
+
+                  <div className="p-2 bg-black/40 rounded-xl border border-red-500/40 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-red-500/20 text-red-300 font-bold flex items-center justify-center text-[10px]">
+                        VS
+                      </div>
+                      <div className="text-xs font-bold text-white">Vikram S. • ₹25L Target</div>
+                    </div>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-red-500/20 text-red-400 border border-red-500/40 flex items-center gap-0.5">
+                      <AlertCircle size={10} /> Insufficient (RED)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4 CONTENT: INNER CIRCLE LEADERBOARD */}
+            {activeTab === 'leaderboard' && (
+              <div className="space-y-2 animate-fadeIn">
+                <div className="flex items-center justify-between text-[10px] text-[var(--text-secondary)] font-mono">
+                  <span>Inner Circle: Bangalore Founders</span>
+                  <span className="text-[var(--gold-glow)]">Ranked by % Completed</span>
+                </div>
+
+                <div className="p-2.5 bg-gradient-to-r from-emerald-950/70 to-black rounded-xl border-2 border-[var(--emerald-glow)]">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-[var(--emerald-glow)] text-black font-extrabold flex items-center justify-center text-[10px]">
+                        #1
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white flex items-center gap-1">
+                          <span>Rohith S. (You)</span>
+                          <span className="text-[8px] bg-emerald-500/20 text-[var(--emerald-glow)] px-1 rounded font-mono">
+                            48d Streak 🔥
+                          </span>
+                        </div>
+                        <div className="text-[9px] text-[var(--text-secondary)]">Goal: ₹1 Crore Wealth • Age 28 Target</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xs sm:text-sm font-extrabold text-[var(--emerald-glow)] font-mono">42%</div>
+                      <div className="text-[9px] text-[var(--text-secondary)] font-mono">₹42L / ₹1Cr</div>
+                    </div>
+                  </div>
+                  <div className="w-full bg-black/60 rounded-full h-1.5 mb-1">
+                    <div className="bg-gradient-to-r from-emerald-500 to-[var(--emerald-glow)] h-1.5 rounded-full w-[42%]"></div>
+                  </div>
+                  <div className="text-[9px] text-[var(--emerald-glow)] font-medium flex justify-between">
+                    <span>Consistency: 98%</span>
+                    <span>Just posted 40% Milestone Proof 📸</span>
+                  </div>
+                </div>
+
+                <div className="p-2 bg-black/40 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-gray-800 text-gray-300 font-bold flex items-center justify-center text-[9px]">
+                        #2
+                      </div>
+                      <div className="text-xs font-bold text-white">Priya K. (₹50L Goal)</div>
+                    </div>
+                    <div className="text-xs font-bold text-white font-mono">38%</div>
+                  </div>
+                  <div className="w-full bg-black/60 rounded-full h-1">
+                    <div className="bg-emerald-600 h-1 rounded-full w-[38%]"></div>
+                  </div>
+                </div>
+
+                <div className="p-2 bg-black/40 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-gray-800 text-gray-300 font-bold flex items-center justify-center text-[9px]">
+                        #3
+                      </div>
+                      <div className="text-xs font-bold text-white">Arjun M. (₹25L Goal)</div>
+                    </div>
+                    <div className="text-xs font-bold text-white font-mono">31%</div>
+                  </div>
+                  <div className="w-full bg-black/60 rounded-full h-1">
+                    <div className="bg-emerald-600 h-1 rounded-full w-[31%]"></div>
+                  </div>
+                </div>
+
+                <div className="p-2 bg-black/40 rounded-xl border border-gray-800">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-gray-800 text-gray-300 font-bold flex items-center justify-center text-[9px]">
+                        #4
+                      </div>
+                      <div className="text-xs font-bold text-white">Vikram S. (₹75L Goal)</div>
+                    </div>
+                    <div className="text-xs font-bold text-white font-mono">24%</div>
+                  </div>
+                  <div className="w-full bg-black/60 rounded-full h-1">
+                    <div className="bg-amber-600 h-1 rounded-full w-[24%]"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 5 CONTENT: MILESTONE PROOFS */}
+            {activeTab === 'proofs' && (
+              <div className="space-y-2.5 animate-fadeIn">
+                <div className="bg-gradient-to-b from-[#0a281c] to-[#04150e] border border-emerald-500/40 rounded-xl p-3 shadow-md">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-emerald-500/20 border border-[var(--emerald-glow)] text-emerald-300 font-bold flex items-center justify-center text-[10px]">
+                        RS
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white">Rohith S.</div>
+                        <div className="text-[9px] text-[var(--text-secondary)]">Inner Circle Achievement Feed</div>
+                      </div>
+                    </div>
+                    <span className="text-[9px] bg-emerald-500/20 text-[var(--emerald-glow)] px-1.5 py-0.5 rounded font-mono">
+                      Verified ✓
+                    </span>
+                  </div>
+
+                  <div className="bg-black/50 p-2.5 rounded-lg border border-emerald-500/30 mb-2">
+                    <div className="text-xs font-extrabold text-white mb-0.5">
+                      🎯 Finished 40% of my ‘₹1 Crore Wealth Goal’!
+                    </div>
+                    <p className="text-[10px] text-[var(--text-secondary)]">
+                      "48-day daily streak. Dream car delivered! 60% left before target age 28."
+                    </p>
+                  </div>
+
+                  <div className="rounded-lg border border-emerald-500/30 bg-gradient-to-br from-[#0c3826] to-[#041910] p-2.5 text-center mb-2">
+                    <div className="text-[9px] text-[var(--emerald-glow)] font-mono font-bold">
+                      📸 MILESTONE PHOTO PROOF POSTED • CAR KEYS VERIFIED
+                    </div>
+                    <div className="text-xs font-extrabold text-white font-mono mt-0.5">
+                      40% MILESTONE COMPLETE
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-1 text-xs">
+                    <button
+                      onClick={handleCheer}
+                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full transition-all text-[11px] font-semibold ${
+                        hasCheered
+                          ? 'bg-emerald-500/20 text-[var(--emerald-glow)] border border-emerald-500/40'
+                          : 'bg-black/40 text-[var(--text-secondary)] hover:text-white'
+                      }`}
+                    >
+                      <Heart size={12} className={hasCheered ? 'fill-[var(--emerald-glow)] text-[var(--emerald-glow)]' : ''} />
+                      <span>{cheerCount} Cheers</span>
+                    </button>
+                    <span className="text-[10px] text-[var(--text-secondary)]">8 Circle Comments</span>
+                  </div>
                 </div>
 
                 <button
-                  onClick={() => {
-                    setStoryCopied(true);
-                    setTimeout(() => setStoryCopied(false), 3000);
-                  }}
-                  className="btn-primary w-full text-xs py-2.5"
+                  onClick={handleUploadProof}
+                  className="btn-primary w-full text-xs py-2"
                 >
-                  <Share2 size={16} />
-                  <span>{storyCopied ? 'Story Link Copied!' : 'Share to Instagram & LinkedIn'}</span>
+                  <Camera size={13} />
+                  <span>{proofUploaded ? 'Milestone Proof Posted to Circle! 📸' : 'Simulate Posting Your Milestone Photo'}</span>
                 </button>
-
               </div>
-            </div>
+            )}
 
-            {/* Ratio Story Explanation */}
-            <div className="lg:col-span-6 space-y-5">
-              <div className="glass-panel p-6 border-l-4 border-l-[var(--emerald-glow)]">
-                <div className="badge-pill badge-pill-emerald mb-2">Q2 & Q4 Bi-Annual Feature</div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  Bi-Annual Ratio Videos & Merit Reveals
-                </h3>
-                <p className="text-sm text-[var(--text-secondary)] mb-4">
-                  Every 6 months (Q2 & Q4), NEORTH compiles your income-to-expense ratios, savings acceleration, and net worth growth into a stunning Spotify Wrapped / Strava-style story card.
-                </p>
-
-                <div className="space-y-3 text-xs">
-                  <div className="p-3 bg-black/30 rounded-xl border border-gray-800 flex items-center gap-3">
-                    <Award className="text-[var(--gold-glow)]" size={20} />
-                    <div>
-                      <div className="font-bold text-white">No Link Spam in Community</div>
-                      <div className="text-[var(--text-secondary)]">Proof-verified financial stats keep flexes clean & authentic.</div>
-                    </div>
-                  </div>
-
-                  <div className="p-3 bg-black/30 rounded-xl border border-gray-800 flex items-center gap-3">
-                    <Sparkles className="text-[var(--emerald-glow)]" size={20} />
-                    <div>
-                      <div className="font-bold text-white">Social Media Flex Ready</div>
-                      <div className="text-[var(--text-secondary)]">Optimized aspect ratio for Instagram Stories, X (Twitter), and LinkedIn.</div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-        )}
-
-        {/* TAB 4: CIRCLES & GROUP GOALS (VERIFIED BANK BALANCE PROOF) */}
-        {activeTab === 'circles' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            
-            {/* Phone Screen: Group Goals */}
-            <div className="lg:col-span-7 bg-[#051811] border border-[rgba(52,211,153,0.3)] rounded-3xl p-5 md:p-6 shadow-2xl">
-              
-              <div className="flex items-center justify-between pb-4 border-b border-[rgba(52,211,153,0.15)] mb-4">
-                <div>
-                  <div className="text-xs text-[var(--text-secondary)]">Group Goal Verification</div>
-                  <div className="text-base font-bold text-white">Family & Friends Wealth Pool</div>
-                </div>
-                <span className="badge-pill badge-pill-emerald text-[11px]">
-                  RBI AA Automated Proof
-                </span>
-              </div>
-
-              {/* Goal Progress Card */}
-              <div className="bg-gradient-to-r from-emerald-950/60 to-black p-4 rounded-2xl border border-emerald-500/30 mb-5">
-                <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="font-bold text-white">Goal: ₹10,000,000 Real Estate Fund</span>
-                  <span className="font-mono text-[var(--emerald-glow)] font-bold">75% Achieved</span>
-                </div>
-                <div className="w-full bg-gray-800 rounded-full h-2 mb-3">
-                  <div className="bg-gradient-to-r from-emerald-500 to-[var(--emerald-glow)] h-2 rounded-full w-3/4"></div>
-                </div>
-                <div className="text-[11px] text-[var(--text-secondary)]">
-                  Finish Date: Dec 31, 2026 | Auto-verified via RBI Bank Feeds within 10 days of completion.
-                </div>
-              </div>
-
-              {/* Member Contribution Balance Checklist */}
-              <div className="space-y-3 mb-5">
-                <div className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider">
-                  Member Contribution Status (RBI AA Verified)
-                </div>
-
-                <div className="p-3 bg-black/40 rounded-xl border border-emerald-500/40 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-300 font-bold flex items-center justify-center text-xs">
-                      RS
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Rohith (You)</div>
-                      <div className="text-[10px] text-[var(--text-secondary)] font-mono">Target: ₹25,00,000</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-[var(--emerald-glow)] border border-emerald-500/40 flex items-center gap-1">
-                      <Check size={12} /> Balance Verified (GREEN)
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-black/40 rounded-xl border border-emerald-500/40 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-300 font-bold flex items-center justify-center text-xs">
-                      PK
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Priya K.</div>
-                      <div className="text-[10px] text-[var(--text-secondary)] font-mono">Target: ₹25,00,000</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-[var(--emerald-glow)] border border-emerald-500/40 flex items-center gap-1">
-                      <Check size={12} /> Balance Verified (GREEN)
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-3 bg-black/40 rounded-xl border border-red-500/40 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-red-500/20 border border-red-500 text-red-300 font-bold flex items-center justify-center text-xs">
-                      VS
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">Vikram S.</div>
-                      <div className="text-[10px] text-[var(--text-secondary)] font-mono">Target: ₹25,00,000</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-red-500/20 text-red-400 border border-red-500/40 flex items-center gap-1">
-                      <AlertCircle size={12} /> Insufficient (RED)
-                    </span>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Submit Proof Button */}
+            {/* Bottom Interactive CTA */}
+            <div className="pt-2 border-t border-[rgba(52,211,153,0.15)] flex items-center justify-between mt-3">
+              <span className="text-[10px] text-[var(--text-secondary)] font-mono">
+                {currentAnimation.badge}
+              </span>
               <button
-                onClick={() => {
-                  setProofSubmitted(true);
-                  confetti({ particleCount: 50 });
-                }}
-                className="btn-secondary w-full text-xs py-2.5"
+                onClick={onOpenWaitlist}
+                className="text-[11px] text-[var(--emerald-glow)] hover:text-white font-bold flex items-center gap-1 transition-colors"
               >
-                <PlusCircle size={14} />
-                <span>{proofSubmitted ? 'Proof Image Uploaded (+500 Merits!)' : 'Submit Investment Proof & Claim Merits'}</span>
+                <span>Reserve Early Access</span>
+                <ArrowRight size={12} />
               </button>
-
-            </div>
-
-            {/* Explanation */}
-            <div className="lg:col-span-5 space-y-5">
-              <div className="glass-panel p-5 border-l-4 border-l-[var(--emerald-glow)]">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Personal & Group Goal Proof System
-                </h3>
-                <p className="text-xs md:text-sm text-[var(--text-secondary)] mb-4">
-                  Friends or families set non-periodic pooled goals. NEORTH tracks synced bank accounts in the background:
-                </p>
-                
-                <ul className="text-xs text-[var(--text-secondary)] space-y-2 list-disc list-inside">
-                  <li><strong className="text-[var(--emerald-glow)]">Green Status:</strong> Bank balance meets or exceeds contribution target.</li>
-                  <li><strong className="text-red-400">Red Status:</strong> Bank balance under target threshold.</li>
-                  <li><strong className="text-white">Verification Window:</strong> Ensures money saved has been transferred to third party within 10 days of completion date!</li>
-                </ul>
-              </div>
             </div>
 
           </div>
-        )}
 
-        {/* TAB 5: 7 MERIT TIERS */}
-        {activeTab === 'merits' && (
-          <div className="space-y-6">
-            <div className="text-center max-w-2xl mx-auto">
-              <span className="badge-pill badge-pill-gold mb-2">7-Level Merit Reputation Architecture</span>
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Earn Merits. Access Elite Circles & Hangouts.
-              </h3>
-              <p className="text-xs md:text-sm text-[var(--text-secondary)]">
-                Merits reflect your annual financial discipline. They refresh yearly and establish your permanent track record across 7 levels.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+          {/* RIGHT: DYNAMIC 2D ANIMATION SCENE FOR THE ACTIVE SCREEN (lg:col-span-5) */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div className="glass-panel p-3.5 sm:p-5 border border-[rgba(0,255,157,0.3)] bg-gradient-to-b from-[#051c12] to-[#020b06] relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl h-full flex flex-col justify-between">
               
-              <div className="bg-black/40 border border-gray-800 rounded-2xl p-4 hover:border-emerald-500 transition-all">
-                <div className="text-xs text-emerald-400 font-bold mb-1">TIER 1 & 2</div>
-                <div className="text-lg font-bold text-white mb-1">Seed & Pathfinder</div>
-                <div className="text-xs text-[var(--text-secondary)] font-sans">0 - 1,000 Merits</div>
-                <div className="text-[11px] text-[var(--text-emerald)] mt-2">Unlocks basic forums & daily streak tracker</div>
+              {/* Dynamic 2D Scene Art */}
+              <div className="relative rounded-2xl overflow-hidden mb-3.5 border border-emerald-500/30 group">
+                <img 
+                  key={currentAnimation.image}
+                  src={currentAnimation.image} 
+                  alt={currentAnimation.title} 
+                  className="w-full h-56 sm:h-64 md:h-72 object-cover object-center transition-all duration-500 group-hover:scale-105 animate-fadeIn"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020906] via-transparent to-black/30 pointer-events-none"></div>
+
+                {/* Floating animated gold coin orbit halo indicator */}
+                <div className="absolute top-3 right-3 pointer-events-none">
+                  <div className="relative flex items-center justify-center">
+                    <span className="animate-ping absolute inline-flex h-7 w-7 rounded-full bg-[var(--emerald-glow)] opacity-70"></span>
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400 p-0.5 shadow-[0_0_15px_#00ff9d]">
+                      <div className="w-full h-full bg-black rounded-full flex items-center justify-center text-[9px] font-bold text-[var(--gold-glow)]">
+                        ✦
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Badge Overlay */}
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] font-mono bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-lg border border-[rgba(0,255,157,0.3)] text-white">
+                  <span className="text-[var(--gold-light)] font-bold">{currentAnimation.badge}</span>
+                  <span className="text-[var(--emerald-glow)]">{currentAnimation.statusPill}</span>
+                </div>
               </div>
 
-              <div className="bg-black/40 border border-emerald-500/40 rounded-2xl p-4 hover:border-emerald-500 transition-all">
-                <div className="text-xs text-[var(--emerald-glow)] font-bold mb-1">TIER 3 & 4</div>
-                <div className="text-lg font-bold text-white mb-1">Builder & Accelerator</div>
-                <div className="text-xs text-[var(--text-secondary)] font-sans">1,001 - 5,000 Merits</div>
-                <div className="text-[11px] text-[var(--text-emerald)] mt-2">Unlocks ₹1 Lakh & ₹10 Lakh Saved Circles</div>
+              {/* Dynamic Scene Highlights (No heavy text blocks) */}
+              <div className="space-y-2 mb-2 font-mono text-[11px]">
+                <div className="p-2.5 rounded-xl bg-black/50 border border-emerald-500/25 flex items-center justify-between">
+                  <div className="text-[10px] text-[var(--text-secondary)]">{currentAnimation.statLabel}</div>
+                  <div className="text-xs font-bold text-[var(--emerald-glow)]">{currentAnimation.statValue}</div>
+                </div>
+
+                <div className="bg-[rgba(16,48,33,0.4)] border border-[rgba(0,255,157,0.2)] rounded-xl p-2.5">
+                  <div className="text-xs font-bold text-white mb-0.5">
+                    {currentAnimation.title}
+                  </div>
+                  <div className="text-[10px] text-[var(--text-secondary)] leading-relaxed">
+                    {currentAnimation.tagline}
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-black/40 border border-amber-500/40 rounded-2xl p-4 hover:border-amber-500 transition-all">
-                <div className="text-xs text-amber-400 font-bold mb-1">TIER 5 & 6</div>
-                <div className="text-lg font-bold text-white mb-1">Elite & Sovereign</div>
-                <div className="text-xs text-[var(--text-secondary)] font-sans">5,001 - 25,000 Merits</div>
-                <div className="text-[11px] text-[var(--gold-light)] mt-2">Unlocks IRL Event Creation & Mentorship</div>
-              </div>
-
-              <div className="bg-gradient-to-br from-amber-950/60 to-black border border-amber-400 rounded-2xl p-4">
-                <div className="text-xs text-amber-300 font-bold mb-1">TIER 7</div>
-                <div className="text-lg font-bold text-amber-200 mb-1">Monarch Elite</div>
-                <div className="text-xs text-[var(--text-secondary)] font-sans">25,000+ Merits</div>
-                <div className="text-[11px] text-amber-300 mt-2">Exclusive Eventbrite / BookMyShow Hangouts</div>
+              {/* Quick Tab Switcher Dots */}
+              <div className="flex items-center justify-center gap-1.5 pt-2 border-t border-[rgba(52,211,153,0.15)]">
+                {['networth', 'rituals', 'goals', 'leaderboard', 'proofs'].map((tabKey) => (
+                  <button
+                    key={tabKey}
+                    onClick={() => setActiveTab(tabKey)}
+                    className={`h-1.5 rounded-full transition-all ${
+                      activeTab === tabKey ? 'w-6 bg-[var(--emerald-glow)]' : 'w-2 bg-gray-700 hover:bg-gray-500'
+                    }`}
+                  />
+                ))}
               </div>
 
             </div>
-
-            <div className="text-center pt-2">
-              <button onClick={onOpenWaitlist} className="btn-gold text-xs py-2.5 px-6">
-                <Award size={16} />
-                <span>Reserve Your Level 1 Status on Launch</span>
-              </button>
-            </div>
-
           </div>
-        )}
+
+        </div>
 
       </div>
     </div>

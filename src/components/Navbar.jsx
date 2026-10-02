@@ -20,13 +20,13 @@ export function Navbar({ onOpenWaitlist, waitlistCount = 827 }) {
           </div>
         </a>
 
-        {/* Desktop Nav Items (As requested: ONLY Net Worth Calculator & Interactive App Experience) */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-[var(--text-secondary)] font-heading">
-          <a href="#calculator" className="hover:text-[var(--emerald-glow)] transition-colors">
-            Net Worth Calculator
-          </a>
+        {/* Desktop Nav Items */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-[var(--text-secondary)] font-heading">
           <a href="#app-simulator" className="hover:text-[var(--emerald-glow)] transition-colors">
-            Interactive App Experience
+            App Experience
+          </a>
+          <a href="#pillars" className="hover:text-[var(--emerald-glow)] transition-colors">
+            The 4 Pillars
           </a>
         </nav>
 

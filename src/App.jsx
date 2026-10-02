@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import CosmicGalaxyBackground from './components/CosmicGalaxyBackground';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
-import NetWorthCalculator from './components/NetWorthCalculator';
 import AppSimulator from './components/AppSimulator';
 import PillarsSection from './components/PillarsSection';
 import WaitlistModal from './components/WaitlistModal';
@@ -37,14 +36,14 @@ function App() {
   };
 
   const handleExploreDemo = () => {
-    const el = document.getElementById('calculator');
+    const el = document.getElementById('app-simulator');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col relative bg-[#010905] text-white overflow-hidden">
+    <div className="min-h-screen flex flex-col relative bg-[#010905] text-white overflow-x-hidden w-full max-w-full">
       {/* Dynamic Dark Green Galaxy & Orbit Motion Background */}
       <CosmicGalaxyBackground />
 
@@ -52,7 +51,7 @@ function App() {
       <Navbar onOpenWaitlist={handleOpenWaitlist} waitlistCount={waitlistCount} />
 
       {/* Main Content Sections */}
-      <main className="flex-1 relative z-10">
+      <main className="flex-1 relative z-10 w-full overflow-hidden">
         {/* Hero Section */}
         <HeroSection
           onOpenWaitlist={handleOpenWaitlist}
@@ -60,10 +59,7 @@ function App() {
           waitlistCount={waitlistCount}
         />
 
-        {/* Interactive Net Worth Growth Calculator */}
-        <NetWorthCalculator onOpenWaitlist={handleOpenWaitlist} />
-
-        {/* Interactive App Simulator (RBI AA, Daily Rituals, Ratio Flex, Group Goals, 7 Merit Tiers) */}
+        {/* Interactive App Simulator (RBI AA, Daily Rituals, Real-Life Goals, Group Leaderboard, Milestone Proofs) */}
         <AppSimulator onOpenWaitlist={handleOpenWaitlist} />
 
         {/* Four Pillars of NEORTH */}

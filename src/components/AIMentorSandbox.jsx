@@ -16,7 +16,7 @@ export function AIMentorSandbox({ onOpenWaitlist }) {
     "⚡ Give me my daily hype check & streak motivation!",
     "📈 How do I reach ₹1 Crore Net Worth in 5 years?",
     "🔒 How does RBI Account Aggregator keep my bank feeds safe?",
-    "🏆 How do I unlock Tier 5 Elite Merits?",
+    "🏆 How do I climb to #1 on my inner circle leaderboard?",
   ];
 
   const handleSend = (queryText) => {
@@ -36,11 +36,11 @@ export function AIMentorSandbox({ onOpenWaitlist }) {
       if (textToSend.includes("hype") || textToSend.includes("motivation")) {
         replyText = "🔥 Listen up champ! You're on a 14-day streak with ₹24.8 Lakh Net Worth (+13% this month). You deleted Timidity & Wavering Mind from your dictionary. Take your next action NOW!";
       } else if (textToSend.includes("1 Crore") || textToSend.includes("Net Worth")) {
-        replyText = "📈 To hit ₹1 Crore by 2030: Increase monthly equity SIP by ₹15,000, maintain income-to-expense ratio above 4:1, and verify your quarterly goal balances via RBI AA bank feeds. You're 24.8% there!";
+        replyText = "📈 To hit ₹1 Crore by 2030: Increase monthly equity SIP by ₹15,000, maintain income-to-expense ratio above 4:1, and verify your quarterly goal balances via RBI AA bank feeds. You're 42% there!";
       } else if (textToSend.includes("RBI") || textToSend.includes("safe")) {
         replyText = "🔒 NEORTH uses RBI-licensed Account Aggregators (Setu, Finvu, Anumati, Perfios). Your bank credentials are NEVER stored. Data flows end-to-end encrypted with your explicit consent.";
-      } else if (textToSend.includes("Merits") || textToSend.includes("Tier")) {
-        replyText = "🏆 Tier 5 Elite requires 5,001 Merits. Complete all 4 Daily Rituals (+100/day), submit group goal completion proofs (+500), and maintain a 30-day streak (+250 bonus)!";
+      } else if (textToSend.includes("leaderboard") || textToSend.includes("climb") || textToSend.includes("Tier")) {
+        replyText = "🏆 Leaderboards rank by percentage of goal completed and daily consistency. Complete all 4 Daily Rituals, maintain your streak, and post milestone photo proofs as you cross 25%, 40%, and 75% marks!";
       }
 
       setMessages((prev) => [...prev, { sender: 'ai', text: replyText }]);
