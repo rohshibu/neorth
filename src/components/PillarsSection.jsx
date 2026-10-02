@@ -6,47 +6,27 @@ export function PillarsSection() {
   const pillars = [
     {
       icon: TrendingUp,
-      title: "1. Wealth Building",
-      tagline: "RBI Account Aggregator Engine",
-      color: "emerald",
-      points: [
-        "Consented bank sync via RBI-regulated Setu, Finvu & Anumati",
-        "Real-time consolidated Net Worth with zero manual entry",
-        "Automated 'What Changed & Why' monthly balance audits"
-      ]
-    },
-    {
-      icon: Target,
-      title: "2. Goal Execution",
-      tagline: "Target Age & Timeline Milestones",
-      color: "gold",
-      points: [
-        "Tie real-life goals to your exact target age and target year",
-        "Daily progress calculated automatically from linked bank accounts",
-        "10-day post-completion verification for authentic goal fulfillment"
-      ]
-    },
-    {
-      icon: Flame,
-      title: "3. Daily Discipline",
-      tagline: "4 Daily Rituals & Streak System",
-      color: "emerald",
-      points: [
-        "4 quick micro-habits: review money, reflect win, AI advice, circle sync",
-        "Consistency streaks that build daily financial discipline",
-        "Personalized AI mentor keeping your goals front and center"
-      ]
+      title: "1. Measurable Wealth Building",
+      subtitle: "Consented RBI account sync and verified real-time net worth tracking with zero manual spreadsheets.",
+      color: "emerald"
     },
     {
       icon: Users,
-      title: "4. Community & Competition",
-      tagline: "Leaderboards & Achievement Proofs",
-      color: "gold",
-      points: [
-        "Compete in inner groups on percentage of personal goals completed",
-        "Leaderboards reward daily consistency and improving momentum",
-        "Post milestone photos with your circle when you hit targets (e.g. 40% of ₹1 Cr)"
-      ]
+      title: "2. Healthy Competitive Groups & Communities",
+      subtitle: "Compete with inner circles on goal completion percentages, celebrating momentum rather than asset flexes.",
+      color: "gold"
+    },
+    {
+      icon: Flame,
+      title: "3. Consistency & Accountability",
+      subtitle: "Pay a subscription to stay accountable, take daily action, and convert paid fees into Merits when you succeed.",
+      color: "emerald"
+    },
+    {
+      icon: Target,
+      title: "4. Built for People Who Exponentially Want to Improve Their Lives",
+      subtitle: "Engineered for high-agency achievers who demand daily progress, verified milestones, and elevated peer standards.",
+      color: "gold"
     }
   ];
 
@@ -64,7 +44,7 @@ export function PillarsSection() {
           <span className="gradient-text-emerald">Built for Real-Life Goals.</span>
         </h2>
         <p className="text-xs sm:text-sm md:text-base text-[var(--text-secondary)] max-w-2xl mx-auto">
-          Four tightly engineered systems that turn long-term wealth ambitions into daily micro-progress and healthy peer accountability.
+          Four core principles designed to turn ambitious goals into daily execution and healthy accountability.
         </p>
       </div>
 
@@ -79,32 +59,19 @@ export function PillarsSection() {
                 isGold ? 'border-[rgba(245,158,11,0.25)] hover:border-[var(--gold-primary)]' : 'border-[rgba(52,211,153,0.25)] hover:border-[var(--emerald-glow)]'
               }`}
             >
-              <div className="flex items-center gap-3 mb-3.5">
+              <div className="flex items-start gap-3.5">
                 <div className={`p-2.5 sm:p-3 rounded-2xl flex-shrink-0 ${
                   isGold ? 'bg-amber-500/15 text-[var(--gold-light)] border border-amber-500/30' : 'bg-emerald-500/15 text-[var(--emerald-glow)] border border-emerald-500/30'
                 }`}>
                   <IconComp size={22} />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white leading-tight">{p.title}</h3>
-                  <span className={`text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider ${
-                    isGold ? 'text-[var(--gold-light)]' : 'text-[var(--emerald-glow)]'
-                  }`}>
-                    {p.tagline}
-                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-white leading-snug mb-1.5">{p.title}</h3>
+                  <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+                    {p.subtitle}
+                  </p>
                 </div>
               </div>
-
-              <ul className="space-y-2 text-xs sm:text-sm text-[var(--text-secondary)]">
-                {p.points.map((pt, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
-                      isGold ? 'bg-[var(--gold-primary)]' : 'bg-[var(--emerald-glow)]'
-                    }`} />
-                    <span className="leading-snug">{pt}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
           );
         })}

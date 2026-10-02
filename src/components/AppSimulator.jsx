@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { 
   TrendingUp, ShieldCheck, Flame, Users, CheckCircle2, 
-  Sparkles, Check, AlertCircle, ArrowUpRight, Trophy, Camera, Heart, MessageCircle, ArrowRight
+  Sparkles, Check, AlertCircle, ArrowUpRight, Trophy, Camera, Heart, MessageCircle, ArrowRight, Coins, Lock, Unlock
 } from 'lucide-react';
 import NeorthLogo from './NeorthLogo';
 
 export function AppSimulator({ onOpenWaitlist }) {
-  const [activeTab, setActiveTab] = useState('networth'); // networth, rituals, goals, leaderboard, proofs
+  const [activeTab, setActiveTab] = useState('networth'); // networth, rituals, goals, leaderboard, proofs, payments
 
   // Bank Aggregator Sync State
   const [syncedBanks, setSyncedBanks] = useState({
@@ -69,6 +69,9 @@ export function AppSimulator({ onOpenWaitlist }) {
   const [cheerCount, setCheerCount] = useState(24);
   const [hasCheered, setHasCheered] = useState(false);
 
+  // Payments & Merits Conversion State
+  const [meritsConverted, setMeritsConverted] = useState(false);
+
   const handleCheer = () => {
     if (!hasCheered) {
       setCheerCount((c) => c + 1);
@@ -129,7 +132,7 @@ export function AppSimulator({ onOpenWaitlist }) {
       title: 'Compete on % Completed — Not Balance',
       tagline: 'Inner circle friendly rivalry where daily consistency and % completion climb to #1.',
       statLabel: 'Bangalore Founders Circle',
-      statValue: '#1 Rohith (42%) vs #2 Priya (38%)',
+      statValue: '#1 Rohith (42%) vs #2 Karan (38%)',
       statusPill: 'Fair Playing Field for All',
     },
     proofs: {
@@ -141,6 +144,16 @@ export function AppSimulator({ onOpenWaitlist }) {
       statLabel: 'Milestone Verified & Posted',
       statValue: '40% of 1 Crore Achieved 🏆',
       statusPill: 'Car Keys in Hand • Group Cheers',
+    },
+    payments: {
+      image: '/anim-proof.jpg',
+      badge: '6. ACCOUNTABILITY & MERITS',
+      badgeColor: 'gold',
+      title: 'Pay to Stay Accountable • Succeed to Convert',
+      tagline: 'You set your goals and pay a subscription while working toward them. The faster you achieve your goals, the better. Once achieved, 100% of your subscription money converts into Merits!',
+      statLabel: 'Accountability Conversion Vault',
+      statValue: meritsConverted ? '11,988 Merits Active 🏆' : '₹11,988 In Vault (Pending Goal)',
+      statusPill: meritsConverted ? '100% Value Returned' : 'Active Goal Conversion',
     },
   };
 
@@ -159,7 +172,7 @@ export function AppSimulator({ onOpenWaitlist }) {
           Inside <span className="gradient-text-emerald">NEORTH</span>
         </h2>
         <p className="text-[var(--text-secondary)] max-w-2xl mx-auto text-xs sm:text-sm px-2">
-          Toggle each screen to experience daily wealth building, bank-synced goals, and healthy inner-circle competition.
+          Toggle each screen to experience daily wealth building, bank-synced goals, healthy competition, and accountability subscriptions that convert into Merits.
         </p>
       </div>
 
@@ -226,6 +239,18 @@ export function AppSimulator({ onOpenWaitlist }) {
           >
             <Camera size={14} />
             <span>5. Milestone Proofs</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('payments')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'payments'
+                ? 'bg-gradient-to-r from-amber-400 to-[var(--gold-primary)] text-black font-bold shadow-md shadow-amber-500/20'
+                : 'bg-[rgba(16,45,32,0.5)] text-[var(--text-secondary)] hover:text-white'
+            }`}
+          >
+            <Coins size={14} />
+            <span>6. Payments &amp; Merits</span>
           </button>
         </div>
 
@@ -497,9 +522,9 @@ export function AppSimulator({ onOpenWaitlist }) {
                   <div className="p-2 bg-black/40 rounded-xl border border-emerald-500/40 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center text-[10px]">
-                        PK
+                        KM
                       </div>
-                      <div className="text-xs font-bold text-white">Priya K. • ₹25L Target</div>
+                      <div className="text-xs font-bold text-white">Karan M. • ₹25L Target</div>
                     </div>
                     <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/20 text-[var(--emerald-glow)] border border-emerald-500/40 flex items-center gap-0.5">
                       <Check size={10} /> Verified (GREEN)
@@ -529,6 +554,7 @@ export function AppSimulator({ onOpenWaitlist }) {
                   <span className="text-[var(--gold-glow)]">Ranked by % Completed</span>
                 </div>
 
+                {/* #1 Rohith */}
                 <div className="p-2.5 bg-gradient-to-r from-emerald-950/70 to-black rounded-xl border-2 border-[var(--emerald-glow)]">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
@@ -559,13 +585,14 @@ export function AppSimulator({ onOpenWaitlist }) {
                   </div>
                 </div>
 
+                {/* #2 Karan (Updated with guy's name) */}
                 <div className="p-2 bg-black/40 rounded-xl border border-gray-800">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 rounded-full bg-gray-800 text-gray-300 font-bold flex items-center justify-center text-[9px]">
                         #2
                       </div>
-                      <div className="text-xs font-bold text-white">Priya K. (₹50L Goal)</div>
+                      <div className="text-xs font-bold text-white">Karan M. (₹50L Goal)</div>
                     </div>
                     <div className="text-xs font-bold text-white font-mono">38%</div>
                   </div>
@@ -574,6 +601,7 @@ export function AppSimulator({ onOpenWaitlist }) {
                   </div>
                 </div>
 
+                {/* #3 Arjun */}
                 <div className="p-2 bg-black/40 rounded-xl border border-gray-800">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
@@ -589,6 +617,7 @@ export function AppSimulator({ onOpenWaitlist }) {
                   </div>
                 </div>
 
+                {/* #4 Vikram */}
                 <div className="p-2 bg-black/40 rounded-xl border border-gray-800">
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
@@ -669,6 +698,94 @@ export function AppSimulator({ onOpenWaitlist }) {
               </div>
             )}
 
+            {/* TAB 6 CONTENT: PAYMENTS & ACCOUNTABILITY MERITS */}
+            {activeTab === 'payments' && (
+              <div className="space-y-2.5 animate-fadeIn">
+                {/* Active Goal Subscription Box */}
+                <div className="bg-gradient-to-br from-[#0c3324] to-[#062016] border border-[rgba(52,211,153,0.3)] rounded-xl p-3 shadow-md relative overflow-hidden">
+                  <div className="flex items-center justify-between text-[10px] text-[var(--text-secondary)] mb-1">
+                    <span className="font-semibold uppercase tracking-wider">Goal Accountability Vault</span>
+                    <span className="text-[var(--emerald-glow)] font-mono font-bold">₹999 / month</span>
+                  </div>
+
+                  <div className="text-xs sm:text-sm font-black text-white mb-0.5">
+                    Target: ₹1 Crore Wealth Fund
+                  </div>
+                  <div className="text-[10px] text-[var(--text-secondary)] mb-2">
+                    Total Deposited While Working on Goal: <strong className="text-white font-mono">₹11,988</strong> (Month 12 Active)
+                  </div>
+
+                  {/* Vault Status Box */}
+                  <div className={`p-2.5 rounded-lg border transition-all ${
+                    meritsConverted 
+                      ? 'bg-amber-500/20 border-amber-400 text-amber-200' 
+                      : 'bg-black/50 border-emerald-500/30 text-white'
+                  }`}>
+                    <div className="flex items-center justify-between text-xs font-mono font-bold mb-0.5">
+                      <span className="flex items-center gap-1.5">
+                        {meritsConverted ? <Unlock size={13} className="text-amber-300" /> : <Lock size={13} className="text-[var(--emerald-glow)]" />}
+                        {meritsConverted ? '11,988 MERITS UNLOCKED & ACTIVE' : '11,988 MERITS LOCKED IN VAULT'}
+                      </span>
+                      <span className="text-[10px] text-[var(--emerald-glow)]">{meritsConverted ? '100% Converted ✓' : 'Pending Goal'}</span>
+                    </div>
+                    <div className="text-[9px] text-[var(--text-secondary)] leading-tight">
+                      {meritsConverted 
+                        ? 'Goal Achieved! 100% of your ₹11,988 subscription money has been converted into Merits.' 
+                        : 'The faster you achieve your goals, the better. Once achieved, 100% of your subscription is converted into Merits!'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Conversion Trigger Button */}
+                <button
+                  onClick={() => {
+                    setMeritsConverted(true);
+                    confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
+                  }}
+                  className={`w-full text-xs py-2 px-3 rounded-xl font-bold flex items-center justify-center gap-1.5 transition-all ${
+                    meritsConverted
+                      ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20'
+                      : 'btn-primary'
+                  }`}
+                >
+                  <Sparkles size={13} />
+                  <span>{meritsConverted ? '✓ 11,988 Merits Converted & Active in Wallet!' : 'Simulate Goal Achievement & Convert to Merits'}</span>
+                </button>
+
+                {/* Where to spend Merits */}
+                <div className="space-y-1">
+                  <div className="text-[9px] font-semibold text-[var(--text-secondary)] uppercase tracking-wider flex items-center justify-between">
+                    <span>Spend Merits Inside NEORTH:</span>
+                    <span className="text-[var(--gold-light)] font-mono">{meritsConverted ? '11,988 M Available' : 'Locked until Goal'}</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-1.5 text-[9px] font-mono">
+                    <div className="p-1.5 bg-black/40 rounded-lg border border-gray-800 flex items-center justify-between">
+                      <span className="text-white truncate">Bangalore Founders</span>
+                      <span className="text-[var(--gold-light)] font-bold">3,000 M</span>
+                    </div>
+                    <div className="p-1.5 bg-black/40 rounded-lg border border-gray-800 flex items-center justify-between">
+                      <span className="text-white truncate">90-Day Sprint Entry</span>
+                      <span className="text-[var(--gold-light)] font-bold">2,500 M</span>
+                    </div>
+                    <div className="p-1.5 bg-black/40 rounded-lg border border-gray-800 flex items-center justify-between">
+                      <span className="text-white truncate">VIP IRL Hangouts</span>
+                      <span className="text-[var(--gold-light)] font-bold">5,000 M</span>
+                    </div>
+                    <div className="p-1.5 bg-black/40 rounded-lg border border-gray-800 flex items-center justify-between">
+                      <span className="text-white truncate">AI Mentor Strategy</span>
+                      <span className="text-[var(--gold-light)] font-bold">1,488 M</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Core Philosophy Quote */}
+                <div className="p-2 bg-[rgba(6,21,14,0.9)] border border-amber-500/25 rounded-xl text-[10px] text-[var(--text-secondary)] italic leading-tight">
+                  "The idea is simple: you pay to stay accountable, take daily action, and improve your life—and when you succeed, you get value back through Merits."
+                </div>
+              </div>
+            )}
+
             {/* Bottom Interactive CTA */}
             <div className="pt-2 border-t border-[rgba(52,211,153,0.15)] flex items-center justify-between mt-3">
               <span className="text-[10px] text-[var(--text-secondary)] font-mono">
@@ -735,9 +852,9 @@ export function AppSimulator({ onOpenWaitlist }) {
                 </div>
               </div>
 
-              {/* Quick Tab Switcher Dots */}
+              {/* Quick Tab Switcher Dots (Now includes all 6 tabs) */}
               <div className="flex items-center justify-center gap-1.5 pt-2 border-t border-[rgba(52,211,153,0.15)]">
-                {['networth', 'rituals', 'goals', 'leaderboard', 'proofs'].map((tabKey) => (
+                {['networth', 'rituals', 'goals', 'leaderboard', 'proofs', 'payments'].map((tabKey) => (
                   <button
                     key={tabKey}
                     onClick={() => setActiveTab(tabKey)}
